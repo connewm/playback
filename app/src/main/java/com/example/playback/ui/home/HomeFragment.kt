@@ -1,6 +1,7 @@
 package com.example.playback.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,17 @@ import com.example.playback.R
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+    private  val TAG = "HomeFragment"
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        Log.v(TAG,"called onCreateView")
+
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)

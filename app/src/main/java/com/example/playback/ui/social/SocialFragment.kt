@@ -1,6 +1,7 @@
 package com.example.playback.ui.social
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,15 @@ import com.example.playback.R
 class SocialFragment : Fragment() {
 
     private lateinit var socialViewModel: SocialViewModel
+    private  val TAG = "SocialFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.v(TAG,"called onCreateView")
+
         socialViewModel =
             ViewModelProviders.of(this).get(SocialViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_social, container, false)
