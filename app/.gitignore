@@ -1,1 +1,16 @@
 /build
+/app.iml
+/build.gradle
+/proguard-rules.pro
+../.gradle
+../.idea
+../build
+../gradle
+../playBack
+../build.gradle
+../gradle.properties
+../gradlew
+../gradlew.bat
+../local.properties
+../playBack.iml
+../settings.gradle
