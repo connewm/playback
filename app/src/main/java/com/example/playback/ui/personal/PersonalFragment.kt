@@ -1,6 +1,7 @@
 package com.example.playback.ui.personal
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,15 @@ import com.example.playback.R
 class PersonalFragment : Fragment()
 {
     private lateinit var personalViewModel: PersonalViewModel
+    private val TAG = "PersonalFragment"
 
     override fun onCreateView (
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        Log.v(TAG, "called onCreateView")
         personalViewModel = ViewModelProviders.of(this).get(PersonalViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_personal, container, false)
         val textView: TextView = root.findViewById(R.id.text_personal)
