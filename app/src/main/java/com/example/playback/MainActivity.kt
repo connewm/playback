@@ -2,12 +2,16 @@ package com.example.playback
 
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import org.json.JSONArray
+import java.io.IOException
+import java.io.InputStream
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +20,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         Log.v(TAG,"called onCreate")
+
+        /**
+         * Before creating the view for the main activity we want to read from the provided JSON
+         * file and store that data in the database for the user.
+         * This process will mimic what our app will do every time the Main Activity is created
+         * Which is call the Spotify API for the users top songs/artists/etc. and either create
+         * a record for them, or update the current record so the user can view their personal
+         * Spotify data in the Personal page
+         *
+         * Unfortunately we don't have the Spotify API 100% working yet, but the JSONs returned by
+         * API calls will look exactly like the one stored in the res/raw directory now.
+         */
+        add_records()
 
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -30,6 +47,64 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        // show added records in list view in personal page
+        show_records()
+    }
+
+    // read the underlying JSON that represents a Spotify callback
+    fun read_json(): JSONArray
+    {
+        var json: String? = null
+
+        try {
+            val inputStream:InputStream = assets.open("test.json")
+            json = inputStream.bufferedReader().use { it.readText() }
+
+            var json_arr = JSONArray(json)
+
+            return json_arr
+            /*for (i in 0..json_arr.length())
+            {
+                var json_object = json_arr.getJSONObject(i)
+                json_object.getString("key")
+            }*/
+        } catch (e: IOException)
+        {
+
+        }
+
+    }
+
+    // add records if they don't already exist
+    // TODO: create check so were not adding records no matter what
+    // Add no matter what for now (e.g. do no update)
+    fun add_records()
+    {
+        // db helper instance variable for calling CRUD operations
+        var sbdh = SpotPersonalDBHelper()
+        var json_arr = read_json()
+        // decalare the variables to be stored in the db from JSON file
+        var record_id = 0 // increment in each pass
+        var user_id = 0 // TODO: hard coded, for now, eventually get user id on each sessaion and use for data
+        var artist: String
+        var popularity: Int
+        for (idx in 0..json_arr.length())
+        {
+            var json_object = json_arr.getJSONObject(idx)
+            artist = json_object.getString("name")
+            popularity = json_object.getInt("popularity")
+            sbdh.insert_personal_record(SpotPersonalData(record_id, user_id, artist, popularity))
+        }
+
+    }
+
+    // dummy function to show pulled up records in main fragment text view
+    //TODO: IMplement this function. It should show the retrieved records after the create/insert operation
+    // TODO: In a listview in the personal page. Use SpotPersonalDBHelper.read_user_personal_data(users_id)
+    fun show_records()
+    {
+        //
     }
 
     override fun onStop() {
