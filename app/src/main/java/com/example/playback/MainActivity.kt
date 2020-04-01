@@ -12,10 +12,20 @@ import androidx.navigation.ui.setupWithNavController
 import org.json.JSONArray
 import java.io.IOException
 import java.io.InputStream
+import com.spotify.android.appremote.api.ConnectionParams
+import com.spotify.android.appremote.api.Connector
+import com.spotify.android.appremote.api.SpotifyAppRemote
+import com.spotify.protocol.types.PlayerState
+
 
 class MainActivity : AppCompatActivity() {
 
     val TAG = "MainActivity"
+    private val CLIENT_ID = "f4e7b6f3768a4e3ea9c44e4a5f1d8f9a"
+    private val REDIRECT_URI = "com.example.playback://callback"
+    private lateinit  var mSpotifyAppRemote: SpotifyAppRemote
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -115,6 +125,43 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.v(TAG,"called onStart")
+        // Set the connection parameters
+        // Set the connection parameters
+        val connectionParams: ConnectionParams = ConnectionParams.Builder(CLIENT_ID)
+            .setRedirectUri(REDIRECT_URI)
+            .showAuthView(true)
+            .build()
+
+        SpotifyAppRemote.connect(this, connectionParams,
+            object : Connector.ConnectionListener {
+                override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
+                    mSpotifyAppRemote = spotifyAppRemote
+                    Log.d(TAG, "SPOTIFY CONNECTED!")
+                    // Now you can start interacting with App Remote
+                    connected()
+                }
+
+                override fun onFailure(throwable: Throwable) {
+                    Log.e("MainActivity", throwable.message, throwable)
+                    Log.e(TAG,"SPOTIFY DIDNT CONNECT!!!")
+                    // Something went wrong when attempting to connect! Handle errors here
+                }
+            })
+    }
+
+    private fun connected() { // Play a playlist
+        //mSpotifyAppRemote.playerApi.play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL")
+        //mSpotifyAppRemote.playerApi.play("spotify:track:3xgkq8uCVU2VGOHhdWtkCI")
+        //mSpotifyAppRemote.playerApi.play("spotify:playlist:1FeniFvH4IcpLSPqTskJvF")
+        // Subscribe to PlayerState
+        mSpotifyAppRemote.playerApi
+            .subscribeToPlayerState()
+            .setEventCallback { playerState: PlayerState ->
+                val track = playerState.track
+                if (track != null) {
+                    Log.d(TAG, track.name + " by " + track.artist.name)
+                }
+            }
     }
 
     override fun onResume() {

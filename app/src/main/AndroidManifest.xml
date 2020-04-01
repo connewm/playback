@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.playback">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,5 +23,20 @@
             </intent-filter>
         </activity>
     </application>
+
+
+
+    <receiver
+        android:name=".MyBroadCastReceiver"
+        android:enabled="true"
+        android:exported="true">
+
+        <intent-filter>
+            <action android:name="com.spotify.music.playbackstatechanged"/>
+            <action android:name="com.spotify.music.metadatachanged"/>
+            <action android:name="com.spotify.music.queuechanged"/>
+        </intent-filter>
+
+    </receiver>
 
 </manifest>
