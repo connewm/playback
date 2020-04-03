@@ -1,17 +1,17 @@
 package com.example.playback.ui.personal
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import com.example.playback.DBActivity
 import com.example.playback.R
 
-class PersonalFragment : Fragment()
+
+class PersonalFragment : Fragment() , View.OnClickListener
 {
     private lateinit var personalViewModel: PersonalViewModel
     private val TAG = "PersonalFragment"
@@ -21,14 +21,26 @@ class PersonalFragment : Fragment()
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        Log.v(TAG, "called onCreateView")
-        personalViewModel = ViewModelProviders.of(this).get(PersonalViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_personal, container, false)
-        val textView: TextView = root.findViewById(R.id.text_personal)
-        personalViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
-        return root
+        val v: View =
+            inflater.inflate(R.layout.activity_database, container, false)
+        val addButton = v.findViewById<Button>(R.id.button3)
+        addButton.setOnClickListener(this)
+        val fetchButton = v.findViewById<Button>(R.id.button2)
+        fetchButton.setOnClickListener(this)
+        val removeButton = v.findViewById<Button>(R.id.button)
+        removeButton.setOnClickListener(this)
+        return v
     }
+
+    override fun onClick(v: View?) {
+        if (v != null) {
+            if(v.id == R.id.button3) {
+                startActivity(
+                    Intent(activity!!.applicationContext, DBActivity::class.java)
+                )
+            }
+        }
+    }
+
+
 }

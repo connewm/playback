@@ -12,4 +12,8 @@
     <string name="button_filter_artist">Artist</string>
     <string name="button_filter_genre">Genre</string>
     <string name="button_filter_album">Album</string>
+	<string name="recordID">recordID</string>
+	<string name="userID">userID</string>
+	<string name="artistName">artistName</string>
+	<string name="popularityScore">popularityScore</string>
 </resources>
