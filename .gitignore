@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignore everything
 /*
 
@@ -12,3 +13,19 @@ app/src/*
 !app/src/main
 
 !*/
+=======
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+>>>>>>> 47c0fd479b78db2b33ed3891f8f12236bcee8d17
