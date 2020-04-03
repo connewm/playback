@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">PlayBack</string>
+    <string name="title_home">Home</string>
+    <string name="title_social">Social</string>
+    <string name="title_maps">Maps</string>
+    <string name="title_personal">Personal</string>
+    <string name="button_time_daily">Daily</string>
+    <string name="button_time_weekly">Weekly</string>
+    <string name="button_time_monthly">Monthly</string>
+    <string name="button_time_yearly">Yearly</string>
+    <string name="button_filter_song">Song</string>
+    <string name="button_filter_artist">Artist</string>
+    <string name="button_filter_genre">Genre</string>
+    <string name="button_filter_album">Album</string>
+	<string name="recordID">recordID</string>
+	<string name="userID">userID</string>
+	<string name="artistName">artistName</string>
+	<string name="popularityScore">popularityScore</string>
+</resources>

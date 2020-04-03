@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1DB954</color>
+    <color name="colorPrimaryOpaque">#AA1DB954</color>
+    <color name="colorPrimaryDark">#1DB954</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="bgBar">#000</color>
+    <color name="bgPage">#404040</color>
+</resources>
