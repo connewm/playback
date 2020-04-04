@@ -122,11 +122,6 @@
                 android:layout_height="wrap_content">
                 <!-- Use this list view to present the entered records from the database -->
                 <!-- A list view of list views should be needed because each record has a list of data associated with it -->
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </ListView>
             </ListView>
         </ScrollView>
 

@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.example.playback.DBActivity
 import com.example.playback.R
+import android.widget.TextView
+import androidx.lifecycle.Observer
 
 
-class PersonalFragment : Fragment() , View.OnClickListener
+class PersonalFragment : Fragment()
 {
     private lateinit var personalViewModel: PersonalViewModel
     private val TAG = "PersonalFragment"
@@ -21,25 +24,14 @@ class PersonalFragment : Fragment() , View.OnClickListener
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v: View =
-            inflater.inflate(R.layout.activity_database, container, false)
-        val addButton = v.findViewById<Button>(R.id.button3)
-        addButton.setOnClickListener(this)
-        val fetchButton = v.findViewById<Button>(R.id.button2)
-        fetchButton.setOnClickListener(this)
-        val removeButton = v.findViewById<Button>(R.id.button)
-        removeButton.setOnClickListener(this)
-        return v
-    }
+        personalViewModel = ViewModelProviders.of(this).get(PersonalViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_personal, container, false)
+        val textView: TextView = root.findViewById(R.id.text_personal)
+        personalViewModel.text.observe(this, Observer {
+            textView.text = it
+        })
 
-    override fun onClick(v: View?) {
-        if (v != null) {
-            if(v.id == R.id.button3) {
-                startActivity(
-                    Intent(activity!!.applicationContext, DBActivity::class.java)
-                )
-            }
-        }
+        return root
     }
 
 
