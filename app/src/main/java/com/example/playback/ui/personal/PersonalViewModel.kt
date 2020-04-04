@@ -6,8 +6,12 @@ import androidx.lifecycle.ViewModel
 
 class PersonalViewModel : ViewModel()
 {
-    private val _text = MutableLiveData<String>().apply {
-        value = "Welcome to your Personal stats"
+    var time_filter_text = MutableLiveData<String>().apply {
+        value = "You have no time filters selected"
     }
-    val text: LiveData<String> = _text
+
+    var pref_filter_text = MutableLiveData<String>().apply {
+        value = "You have no pref filters selected"
+    }
+
 }

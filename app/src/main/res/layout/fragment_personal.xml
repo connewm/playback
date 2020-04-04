@@ -8,7 +8,7 @@
     >
 
     <TextView
-        android:id="@+id/text_personal"
+        android:id="@+id/time_text_personal"
         android:layout_width="fill_parent"
         android:layout_height="42dp"
         android:layout_marginStart="8dp"
@@ -17,6 +17,17 @@
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
+    <TextView
+        android:id="@+id/pref_text_personal"
+        android:layout_width="fill_parent"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+
 
         <LinearLayout
             android:id="@+id/selector_container"
@@ -32,6 +43,7 @@
 
 
                 <Button
+                    android:id="@+id/daily_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bgBar"
@@ -42,6 +54,7 @@
                     />
 
                 <Button
+                    android:id="@+id/weekly_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bgBar"
@@ -51,6 +64,7 @@
                     android:layout_marginLeft="5dp"/>
 
                 <Button
+                    android:id="@+id/monthly_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bgBar"
@@ -60,6 +74,7 @@
                     android:layout_marginLeft="5dp"/>
 
                 <Button
+                    android:id="@+id/yearly_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bgBar"
@@ -77,6 +92,8 @@
                 android:gravity="center">
 
                 <Button
+                    android:id="@+id/song_button"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bgBar"
@@ -86,6 +103,7 @@
                     android:layout_marginLeft="5dp"/>
 
                 <Button
+                    android:id="@+id/artist_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bgBar"
@@ -95,6 +113,7 @@
                     android:layout_marginLeft="5dp"/>
 
                 <Button
+                    android:id="@+id/genre_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bgBar"
@@ -104,6 +123,7 @@
                     android:layout_marginLeft="5dp"/>
 
                 <Button
+                    android:id="@+id/album_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bgBar"
