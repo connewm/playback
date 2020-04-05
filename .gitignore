@@ -8,4 +8,7 @@
 
 /app/src/*
 /app/src/*/
-!/app/src/m
+
+!/app/src/main/
+!.gitignore
+
