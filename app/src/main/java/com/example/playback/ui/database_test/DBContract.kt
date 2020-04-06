@@ -13,6 +13,8 @@ object DBContract{
             val COLUMN_SONG_NAME = "song_name"
             val COLUMN_ALBUM_NAME = "album_name"
             val COLUMN_SONG_GENRE = "song_genre"
+            val COLUMN_SONG_LATITUDE = "song_latitude"
+            val COLUMN_SONG_LONGITUDE = "song_longitude"
         }
     }
 }

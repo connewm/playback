@@ -9,7 +9,10 @@ class SpotifyPersonalData{
     var albumName: String? = null
     var songGenre: String? = null
 
-    constructor(recordId: Int, userId: Int, artistName: String, popularityScore: Int, songName: String, albumName: String, songGenre: String){
+    var listenLocationLatitude = 0.0
+    var listenLocationLongitude = 0.0
+
+    constructor(recordId: Int, userId: Int, artistName: String, popularityScore: Int, songName: String, albumName: String, songGenre: String, listenLocationLatitude: Double, listenLocationLongitude: Double){
         this.recordId = recordId
         this.userId = userId
         this.artistName = artistName
@@ -17,6 +20,10 @@ class SpotifyPersonalData{
         this.songName = songName
         this.albumName = albumName
         this.songGenre = songGenre
+
+        // these values are for pinpointing the location of a listened to song
+        this.listenLocationLatitude = listenLocationLatitude
+        this.listenLocationLongitude = listenLocationLongitude
     }
 }
 
