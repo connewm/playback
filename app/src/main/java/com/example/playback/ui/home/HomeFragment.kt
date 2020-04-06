@@ -31,35 +31,47 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        //setup operations
         Log.v(TAG,"called onCreateView")
-
-
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
+
+        //create the viewModel which will pull the data needed from the database
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+
+
+        //creates a text view then sets that textViews text, to the data from the model
+        //creates the view based off the xml at R.id.text_home which is in the home fragment layout xml
         val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(this, Observer {
+        homeViewModel.text.observe(this, Observer {  //get the data from the variable text from the viewModel, this data cn be changed live, such as in a recyceler view
             textView.text = it
         })
 
 
 
+        Log.v(TAG,"obtaining spotify data")
+        homeViewModel.data.observe(this, Observer {  //get the data from the variable text from the viewModel, this data cn be changed live, such as in a recyceler view
 
-        var dataForRecylerView = arrayOf("TEST1","TEST2","TEST3","TEST4","TEST5","TEST6","TEST7","TEST8","TEST9","TEST10","TEST11","TEST12","TEST13")
-        viewManager = LinearLayoutManager(this.activity)
-        viewAdapter = SongAdapter(dataForRecylerView)
+            var dataForRecylerView: Map<String,Int> = it
+            Log.v(TAG,"the data is: " + dataForRecylerView.toString())
 
-        recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
+            viewManager = LinearLayoutManager(this.activity)
+            viewAdapter = SongAdapter(dataForRecylerView.toList().toTypedArray())
+            Log.v(TAG,"the data as an array: " + dataForRecylerView.toString().toList().toTypedArray())
+            
+            recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view).apply {
+                // use this setting to improve performance if you know that changes
+                // in content do not change the layout size of the RecyclerView
+                setHasFixedSize(true)
 
-            // use a linear layout manager
-            layoutManager = viewManager
+                // use a linear layout manager
+                layoutManager = viewManager
 
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
+                // specify an viewAdapter (see also next example)
+                adapter = viewAdapter
+            }
+        })
 
-        }
+
 
 
 
