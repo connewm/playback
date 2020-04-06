@@ -3,18 +3,25 @@ package com.example.playback
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.playback.ui.database_test.DBTestFragment
+import com.example.playback.ui.database_test.DBTestViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_database.*
+import kotlinx.android.synthetic.main.fragment_personal.*
 import org.json.JSONArray
 import java.io.IOException
 import java.io.InputStream
 
 class MainActivity : AppCompatActivity() {
+    lateinit var db : DBManager
 
     val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +41,9 @@ class MainActivity : AppCompatActivity() {
          */
 
         setContentView(R.layout.activity_main)
+
+        db = DBManager(this)
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -42,12 +52,28 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
+                R.id.navigation_social,
                 R.id.navigation_maps,
                 R.id.navigation_personal
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+    }
+
+    // These 3 functions are not implemented yet because they depends on
+    // which fragment will do these operations
+    fun newData(v:View){
+
+    }
+
+    fun lookupData(v:View){
+
+    }
+
+    fun deleteData(v:View){
+
     }
 
     override fun onStop() {

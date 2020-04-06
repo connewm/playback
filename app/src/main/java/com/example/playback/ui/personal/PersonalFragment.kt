@@ -1,21 +1,20 @@
 package com.example.playback.ui.personal
 
 import android.content.Context
-import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.example.playback.DBActivity
 import com.example.playback.R
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
-import org.w3c.dom.Text
-import java.nio.BufferUnderflowException
+import com.example.playback.DBManager
+import com.example.playback.SpotifyPersonalData
 
 
 class PersonalFragment : Fragment(), View.OnClickListener
@@ -62,8 +61,6 @@ class PersonalFragment : Fragment(), View.OnClickListener
         personalViewModel.pref_filter_text.observe(this, Observer {
             pref_tv.text = it
         })
-
-
 
         return root
     }
@@ -113,5 +110,7 @@ class PersonalFragment : Fragment(), View.OnClickListener
         }
 
     }
+
+
 
 }

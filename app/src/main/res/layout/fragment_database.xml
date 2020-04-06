@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+	
+	<Button
+		android:id="@+id/Add_Button"
+		style="@style/Widget.AppCompat.Button.Borderless"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:onClick="newData"
+		android:text="Add Data" />
+
+	<Button
+		android:id="@+id/Fetch_Button"
+		style="@style/Widget.AppCompat.Button.Borderless"
+		android:layout_width="match_parent"
+		android:layout_height="17dp"
+		android:layout_weight="1"
+		android:onClick="lookupData"
+		android:text="Find Data" />
+
+	<Button
+		android:id="@+id/Delete_Button"
+		style="@style/Widget.AppCompat.Button.Borderless"
+		android:layout_width="match_parent"
+		android:layout_height="23dp"
+		android:layout_weight="1"
+		android:onClick="removeData"
+		android:text="Delete Data" />
+
+	<EditText
+		android:id="@+id/recordID"
+		android:layout_width="match_parent"
+		android:layout_height="76dp" />
+
+	<EditText
+		android:id="@+id/userID"
+		android:layout_width="match_parent"
+		android:layout_height="70dp" />
+
+	<EditText
+		android:id="@+id/artistName"
+		android:layout_width="match_parent"
+		android:layout_height="66dp" />
+
+	<EditText
+		android:id="@+id/popularityScore"
+		android:layout_width="match_parent"
+		android:layout_height="63dp" />
+</LinearLayout>
