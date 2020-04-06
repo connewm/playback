@@ -10,5 +10,7 @@
 /app/src/*/
 
 !/app/src/main/
+
+!/app/src/debug/
 !.gitignore
 

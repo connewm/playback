@@ -3,13 +3,23 @@ package com.example.playback
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+<<<<<<< HEAD
 //import kotlinx.android.synthetic.main.activity_main.*
+=======
+import com.example.playback.ui.database_test.DBTestFragment
+import com.example.playback.ui.database_test.DBTestViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_database.*
+import kotlinx.android.synthetic.main.fragment_personal.*
+>>>>>>> master
 import org.json.JSONArray
 import java.io.IOException
 import java.io.InputStream
@@ -24,6 +34,7 @@ import com.spotify.protocol.client.Subscription;
 import com.spotify.protocol.types.Track;
 
 class MainActivity : AppCompatActivity() {
+    lateinit var db : DBManager
 
     val TAG = "MainActivity"
     private val CLIENT_ID = "f4e7b6f3768a4e3ea9c44e4a5f1d8f9a"
@@ -48,6 +59,9 @@ class MainActivity : AppCompatActivity() {
          */
 
         setContentView(R.layout.activity_main)
+
+        db = DBManager(this)
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -55,6 +69,11 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
+<<<<<<< HEAD
+=======
+                R.id.navigation_home,
+                R.id.navigation_social,
+>>>>>>> master
                 R.id.navigation_maps,
                 R.id.navigation_home,
                 R.id.navigation_personal
@@ -62,6 +81,21 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+    }
+
+    // These 3 functions are not implemented yet because they depends on
+    // which fragment will do these operations
+    fun newData(v:View){
+
+    }
+
+    fun lookupData(v:View){
+
+    }
+
+    fun deleteData(v:View){
+
     }
 
     override fun onStop() {

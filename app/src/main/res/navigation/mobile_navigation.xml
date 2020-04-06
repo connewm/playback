@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_social"
+        android:name="com.example.playback.ui.social.SocialFragment"
+        android:label="@string/title_social"
+        tools:layout="@layout/fragment_social" />
+
+    <fragment
         android:id="@+id/navigation_maps"
         android:name="com.example.playback.ui.map.MapFragment"
         android:label="@string/title_maps"
