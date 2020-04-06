@@ -22,7 +22,8 @@ class DBManager(context: Context) :
                 + DBContract.DataEntry.COLUMN_RECORD_ID + " INTEGER PRIMARY KEY," +
                 DBContract.DataEntry.COLUMN_USER_ID + " INTEGER PRIMARY KEY,"
                 + DBContract.DataEntry.COLUMN_ARTIST_NAME + " TEXT," + DBContract.DataEntry.COLUMN_POPULARITY_SCORE + " INTEGER," +
-                DBContract.DataEntry.COLUMN_SONG_NAME + " TEXT," + DBContract.DataEntry.COLUMN_ALBUM_NAME + " TEXT," + DBContract.DataEntry.COLUMN_SONG_GENRE + "TEXT)")
+                DBContract.DataEntry.COLUMN_SONG_NAME + " TEXT," + DBContract.DataEntry.COLUMN_ALBUM_NAME + " TEXT," + DBContract.DataEntry.COLUMN_SONG_GENRE + " TEXT," +
+                DBContract.DataEntry.COLUMN_SONG_LATITUDE + " REAL," + DBContract.DataEntry.COLUMN_SONG_LONGITUDE + " REAL)")
         private val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + DBContract.DataEntry.TABLE_NAME
     }
 
@@ -49,6 +50,11 @@ class DBManager(context: Context) :
         values.put(DBContract.DataEntry.COLUMN_USER_ID, data.userId)
         values.put(DBContract.DataEntry.COLUMN_ARTIST_NAME, data.artistName)
         values.put(DBContract.DataEntry.COLUMN_POPULARITY_SCORE, data.popularityScore)
+        values.put(DBContract.DataEntry.COLUMN_SONG_NAME, data.songName)
+        values.put(DBContract.DataEntry.COLUMN_ALBUM_NAME, data.albumName)
+        values.put(DBContract.DataEntry.COLUMN_SONG_GENRE, data.songGenre)
+        values.put(DBContract.DataEntry.COLUMN_SONG_LATITUDE, data.listenLocationLatitude)
+        values.put(DBContract.DataEntry.COLUMN_SONG_LONGITUDE, data.listenLocationLongitude)
 
         val newRowId = db.insert(DBContract.DataEntry.TABLE_NAME, null, values)
         return true
@@ -74,6 +80,8 @@ class DBManager(context: Context) :
         var songName: String
         var albumName: String
         var songGenre: String
+        var songLatitude: Double
+        var songLongitude: Double
         if (cursor!!.moveToFirst()) {
             while (cursor.isAfterLast == false) {
                 recordid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_RECORD_ID)))
@@ -82,8 +90,10 @@ class DBManager(context: Context) :
                 songName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_NAME))
                 albumName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ALBUM_NAME))
                 songGenre = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_GENRE))
+                songLatitude = cursor.getDouble(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_LATITUDE))
+                songLongitude = cursor.getDouble(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_LONGITUDE))
 
-                data.add(SpotifyPersonalData(recordid, userid, artistname, popularityscore, songName, albumName, songGenre))
+                data.add(SpotifyPersonalData(recordid, userid, artistname, popularityscore, songName, albumName, songGenre, songLatitude, songLongitude))
                 cursor.moveToNext()
             }
         }
@@ -115,7 +125,7 @@ class DBManager(context: Context) :
         } catch(e: SQLiteException)
         {
             db.execSQL(SQL_CREATE_ENTRIES)
-            return SpotifyPersonalData(0, 0, "", 0, "", "", "")
+            return SpotifyPersonalData(0, 0, "", 0, "", "", "", 0.0, 0.0)
         }
         var user_id: Int = 0
         var artist: String = ""
@@ -123,6 +133,8 @@ class DBManager(context: Context) :
         var songName: String = ""
         var albumName: String = ""
         var songGenre: String = ""
+        var songLatitude = 0.0
+        var songLongitude = 0.0
         if (cursor!!.moveToFirst())
         {
 
@@ -132,9 +144,11 @@ class DBManager(context: Context) :
             songName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_NAME))
             albumName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ALBUM_NAME))
             songGenre = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_GENRE))
+            songLatitude = cursor.getDouble(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_LATITUDE))
+            songLongitude = cursor.getDouble(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_LONGITUDE))
 
         }
-        return SpotifyPersonalData(record_id, user_id, artist, pop, songName, albumName, songGenre)
+        return SpotifyPersonalData(record_id, user_id, artist, pop, songName, albumName, songGenre, songLatitude, songLongitude)
     }
 
     // record contains the new record to update the old record with
@@ -147,6 +161,11 @@ class DBManager(context: Context) :
         cv.put(DBContract.DataEntry.COLUMN_USER_ID, record.userId)
         cv.put(DBContract.DataEntry.COLUMN_ARTIST_NAME, record.artistName)
         cv.put(DBContract.DataEntry.COLUMN_POPULARITY_SCORE, record.popularityScore)
+        cv.put(DBContract.DataEntry.COLUMN_SONG_NAME, record.songName)
+        cv.put(DBContract.DataEntry.COLUMN_ALBUM_NAME, record.albumName)
+        cv.put(DBContract.DataEntry.COLUMN_SONG_GENRE, record.songGenre)
+        cv.put(DBContract.DataEntry.COLUMN_SONG_LATITUDE, record.listenLocationLatitude)
+        cv.put(DBContract.DataEntry.COLUMN_SONG_LONGITUDE, record.listenLocationLongitude)
         try
         {
             db.update(DBContract.DataEntry.TABLE_NAME, cv, "_id="+record.recordId, null)
