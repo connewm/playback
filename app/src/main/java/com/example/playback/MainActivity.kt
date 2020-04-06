@@ -145,12 +145,13 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, track.name + " by " + track.artist.name)
 
                     //TODO get unique id
-                    val id = 0
+                    val userId = 0
+                    val id = db.generate_record_id(userId)
                     val lat: Double = 27.2038
                     val long: Double = -77.5011
 
                     //TODO add data to the database
-                    var newData = SpotifyPersonalData(id,0, track.artist.name,
+                    var newData = SpotifyPersonalData(id,userId, track.artist.name,
                         0,track.name, track.album.name,
                         "IDK YET", lat,long)
 
