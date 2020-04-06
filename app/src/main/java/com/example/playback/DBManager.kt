@@ -7,8 +7,9 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteException
+import android.util.Log
 import com.example.playback.ui.database_test.DBContract
-
+val TAG = "DBMANAGER"
 class DBManager(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME,
         null, DATABASE_VERSION) {
@@ -18,9 +19,9 @@ class DBManager(context: Context) :
         val DATABASE_NAME = "PersonalSpotifyDB.db"
         const val tablePersonalData = "PersonalData"
         private val SQL_CREATE_ENTRIES = ("CREATE TABLE " +
-                tablePersonalData + "("
+                DBContract.DataEntry.TABLE_NAME + "("
                 + DBContract.DataEntry.COLUMN_RECORD_ID + " INTEGER PRIMARY KEY," +
-                DBContract.DataEntry.COLUMN_USER_ID + " INTEGER PRIMARY KEY,"
+                DBContract.DataEntry.COLUMN_USER_ID + " INTEGER,"
                 + DBContract.DataEntry.COLUMN_ARTIST_NAME + " TEXT," + DBContract.DataEntry.COLUMN_POPULARITY_SCORE + " INTEGER," +
                 DBContract.DataEntry.COLUMN_SONG_NAME + " TEXT," + DBContract.DataEntry.COLUMN_ALBUM_NAME + " TEXT," + DBContract.DataEntry.COLUMN_SONG_GENRE + " TEXT," +
                 DBContract.DataEntry.COLUMN_SONG_LATITUDE + " REAL," + DBContract.DataEntry.COLUMN_SONG_LONGITUDE + " REAL)")
@@ -29,6 +30,8 @@ class DBManager(context: Context) :
 
     override fun onCreate(db: SQLiteDatabase) {
         /**SQL statement to create a table**/
+        Log.v(TAG, "called onCreate")
+
         db.execSQL(SQL_CREATE_ENTRIES)
     }
 
