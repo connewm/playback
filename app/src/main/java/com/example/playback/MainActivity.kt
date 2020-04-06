@@ -133,9 +133,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun connected() { // Play a playlist
         //mSpotifyAppRemote.playerApi.play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL")
-        mSpotifyAppRemote.playerApi.play("spotify:track:3xgkq8uCVU2VGOHhdWtkCI")
+        //mSpotifyAppRemote.playerApi.play("spotify:track:3xgkq8uCVU2VGOHhdWtkCI")
         //mSpotifyAppRemote.playerApi.play("spotify:playlist:1FeniFvH4IcpLSPqTskJvF")
         // Subscribe to PlayerState
+
         mSpotifyAppRemote.playerApi
             .subscribeToPlayerState()
             .setEventCallback { playerState: PlayerState ->
@@ -143,7 +144,11 @@ class MainActivity : AppCompatActivity() {
                 if (track != null) {
                     Log.d(TAG, track.name + " by " + track.artist.name)
 
+
                     //TODO add data to the database
+                    //var newData = SpotifyPersonalData()
+
+                    //db.addData()
                 }
             }
     }
