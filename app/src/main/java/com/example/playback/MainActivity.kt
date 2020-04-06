@@ -11,15 +11,15 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-<<<<<<< HEAD
+
 //import kotlinx.android.synthetic.main.activity_main.*
-=======
+
 import com.example.playback.ui.database_test.DBTestFragment
 import com.example.playback.ui.database_test.DBTestViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_database.*
 import kotlinx.android.synthetic.main.fragment_personal.*
->>>>>>> master
+
 import org.json.JSONArray
 import java.io.IOException
 import java.io.InputStream
@@ -69,13 +69,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-<<<<<<< HEAD
-=======
                 R.id.navigation_home,
-                R.id.navigation_social,
->>>>>>> master
                 R.id.navigation_maps,
-                R.id.navigation_home,
                 R.id.navigation_personal
             )
         )
@@ -147,6 +142,8 @@ class MainActivity : AppCompatActivity() {
                 val track = playerState.track
                 if (track != null) {
                     Log.d(TAG, track.name + " by " + track.artist.name)
+
+                    //TODO add data to the database
                 }
             }
     }
