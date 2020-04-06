@@ -175,4 +175,26 @@ class DBManager(context: Context) :
         }
         return true
     }
+
+    // return next record id to be genereated
+    @Throws(SQLiteConstraintException::class)
+    fun generate_record_id(userid: Int): Int
+    {
+        val db = writableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery("select * from " + DBContract.DataEntry.TABLE_NAME + " WHERE " + DBContract.DataEntry.COLUMN_USER_ID + "='" + userid + "' ORDER BY " + DBContract.DataEntry.COLUMN_RECORD_ID,
+                null)
+        } catch (e: SQLiteException) {
+            return -2
+        }
+
+        var record_id: Int = -2
+        if (cursor!!.moveToFirst())
+        {
+            record_id = cursor.getInt(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_RECORD_ID))
+        }
+
+        return record_id + 1
+    }
 }
