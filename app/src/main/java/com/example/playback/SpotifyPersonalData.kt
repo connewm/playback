@@ -6,7 +6,11 @@ class SpotifyPersonalData{
         "listenLocationLatitude" to "",  "listenLocationLongitude" to "" )
 
 
-    constructor(incomingData: Map<String,String>){
+    constructor(){
+
+    }
+
+    public fun populateData(incomingData: Map<String,String>){
         incomingData.map { (key, value) ->
             if(this.data.containsKey(key)) {
                 this.data.put(key,value)

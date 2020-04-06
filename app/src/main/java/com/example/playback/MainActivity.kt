@@ -146,7 +146,9 @@ class MainActivity : AppCompatActivity() {
 
 
                     //TODO add data to the database
-                    //var newData = SpotifyPersonalData()
+
+                    var newData = SpotifyPersonalData()
+                    //newData.populateData(mapOf())
 
                     //db.addData()
                 }
