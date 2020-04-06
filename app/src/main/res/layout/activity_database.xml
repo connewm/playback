@@ -1,54 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:layout_height="wrap_content"
+	android:fillViewport="false">
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
 	<Button
-		android:id="@+id/button3"
+		android:id="@+id/add_data_button"
 		style="@style/Widget.AppCompat.Button.Borderless"
-		android:layout_width="match_parent"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_weight="1"
 		android:onClick="newData"
 		android:text="Add Data" />
 
 	<Button
-		android:id="@+id/button2"
+		android:id="@+id/find_data_button"
 		style="@style/Widget.AppCompat.Button.Borderless"
-		android:layout_width="match_parent"
-		android:layout_height="17dp"
-		android:layout_weight="1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
 		android:onClick="lookupData"
 		android:text="Find Data" />
 
 	<Button
-		android:id="@+id/button"
+		android:id="@+id/delete_data_button"
 		style="@style/Widget.AppCompat.Button.Borderless"
-		android:layout_width="match_parent"
-		android:layout_height="23dp"
-		android:layout_weight="1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+
 		android:onClick="removeData"
 		android:text="Delete Data" />
 
 	<EditText
 		android:id="@+id/recordID"
-		android:layout_width="match_parent"
-		android:layout_height="76dp" />
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
 
 	<EditText
 		android:id="@+id/userID"
-		android:layout_width="match_parent"
-		android:layout_height="70dp" />
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
 
 	<EditText
 		android:id="@+id/artistName"
-		android:layout_width="match_parent"
-		android:layout_height="66dp" />
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
 
 	<EditText
 		android:id="@+id/popularityScore"
-		android:layout_width="match_parent"
-		android:layout_height="63dp" />
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+	<EditText
+		android:id="@+id/songName"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+	<EditText
+		android:id="@+id/albumName"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+	<EditText
+		android:id="@+id/songGenre"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+	<EditText
+		android:id="@+id/songLatitude"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+	<EditText
+		android:id="@+id/songLongitude"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
 </LinearLayout>
+</ScrollView>
