@@ -18,10 +18,6 @@
         android:textSize="20sp"
         android:textColor="@color/colorPrimary"/>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> dataBaseWithSpotify
     <fragment
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
