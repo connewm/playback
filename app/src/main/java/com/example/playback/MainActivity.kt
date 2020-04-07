@@ -62,11 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-<<<<<<< HEAD
 
-        db = DBManager(this)
-        db.writableDatabase
-=======
         try {
             db = DBManager(this.applicationContext)
             Log.w("asdf", "connection successful")
@@ -74,7 +70,6 @@ class MainActivity : AppCompatActivity() {
         {
             Log.w("asdf", "connection unsuccessful")
         }
->>>>>>> c998d9fd3d50cd5f2ceaacdf21e91924384753db
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
