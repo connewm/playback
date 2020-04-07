@@ -1,5 +1,7 @@
 package com.example.playback.ui.map
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +25,7 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
+import com.example.playback.MapsActivity
 //import com.anychart.sample.R;
 
 import java.util.ArrayList;
@@ -40,30 +43,17 @@ class MapFragment : Fragment() {
     ): View? {
 
         Log.v(TAG,"called onCreateView")
-        val root = inflater.inflate(R.layout.fragment_maps, container, false)
-
-        /*mapViewModel =
+        mapViewModel =
             ViewModelProviders.of(this).get(MapViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_maps, container, false)
         val textView: TextView = root.findViewById(R.id.map_page)
         mapViewModel.text.observe(this, Observer {
             textView.text = it
         })
-        */
 
-        var pie : Pie = AnyChart.pie()
-        var data = ArrayList<DataEntry>()
-
-        data.add(  ValueDataEntry("John", 10000))
-        data.add(ValueDataEntry("Jake", 12000))
-        data.add( ValueDataEntry("Peter", 18000))
-
-        pie.data(data);
-
-       var anyChartView:  AnyChartView  = root.findViewById(R.id.any_chart_view);
-        anyChartView.setChart(pie)
-
-
-
+        // create maps activity
+        val maps: Intent = Intent(this.context as Context, MapsActivity::class.java)
+        startActivity(maps)
 
         return root
     }

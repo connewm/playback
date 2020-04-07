@@ -154,8 +154,8 @@ class MainActivity : AppCompatActivity() {
                     val userId = 0
                     val id = db.generate_record_id(0) // db.generate_record_id(userId)
                     Log.w("asdf", "$id")
-                    val lat: Double = 27.2038
-                    val long: Double = -77.5011
+                    val lat: Double = 39.9805
+                    val long: Double = -83.0038
 
 
                     //TODO add data to the database
