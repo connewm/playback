@@ -1,5 +1,6 @@
 package com.example.playback.ui.database_test
 
+import android.app.ActionBar
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -96,14 +98,33 @@ class DBTestFragment : Fragment(), View.OnClickListener
 
 
         }
+
+
         val fetchButton = root.findViewById<Button>(R.id.find_data_button)
         fetchButton.setOnClickListener{
+            record_id.visibility = View.GONE
+            user_id.visibility = View.GONE
+            popularity_score.visibility = View.GONE
+            artist_name.visibility = View.GONE
+            songName.visibility = View.GONE
+            albumName.visibility = View.GONE
+            songGenre.visibility = View.GONE
+
             val arr = db.findData(0)
-            val entry: SpotifyPersonalData = arr.get(0)
-            db_text_test.text = "Record ID: ${entry.recordId}, User ID: ${entry.userId}, Artist Name: ${entry.artistName}"
+            val ll_parent: LinearLayout = root.findViewById(R.id.ll_parent)
+            for (obj in arr)
+            {
+                // code to create textview programmtically
+                val dynamic_view: TextView = TextView(this.context as Context)
+                dynamic_view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                dynamic_view.text = "UserID: ${obj.userId}, RecordID: ${obj.recordId}, Artist Name: ${obj.artistName}, Pop Score: ${obj.popularityScore}, Song Name: ${obj.songName}, Album Name: ${obj.albumName}"
+                ll_parent.addView(dynamic_view)
+            }
         }
         val removeButton = root.findViewById<Button>(R.id.delete_data_button)
-        removeButton.setOnClickListener(this)
+        removeButton.setOnClickListener{
+            db.deleteData(0)
+        }
 
         return root
     }

@@ -32,6 +32,7 @@ import com.spotify.protocol.types.PlayerState
 
 import com.spotify.protocol.client.Subscription;
 import com.spotify.protocol.types.Track;
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     lateinit var db : DBManager
@@ -60,9 +61,13 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-
-        db = DBManager(this.applicationContext)
-        db.writableDatabase
+        try {
+            db = DBManager(this.applicationContext)
+            Log.w("asdf", "connection successful")
+        } catch(e:Exception)
+        {
+            Log.w("asdf", "connection unsuccessful")
+        }
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -107,7 +112,6 @@ class MainActivity : AppCompatActivity() {
         Log.v(TAG, "called onStart")
 
 
-
         // Set the connection parameters
         val connectionParams: ConnectionParams = ConnectionParams.Builder(CLIENT_ID)
             .setRedirectUri(REDIRECT_URI)
@@ -148,7 +152,8 @@ class MainActivity : AppCompatActivity() {
 
                     //TODO get unique id
                     val userId = 0
-                    val id = 1 // db.generate_record_id(userId)
+                    val id = db.generate_record_id(0) // db.generate_record_id(userId)
+                    Log.w("asdf", "$id")
                     val lat: Double = 27.2038
                     val long: Double = -77.5011
 
@@ -157,8 +162,16 @@ class MainActivity : AppCompatActivity() {
                     var newData = SpotifyPersonalData(id,userId, track.artist.name,
                         0,track.name, track.album.name,
                         "IDK YET", lat,long)
+                    var response: Boolean = false
+                    try {
+                         response = db.addData(newData)
+                    } catch(e:Exception) {
+                        Log.w("asdf", "add was unsuccessful")
+                    }
 
-                    db.addData(newData)
+                    if (response) {
+                        Log.w("asdf", "add operation worked")
+                    }
                 }
             }
     }
