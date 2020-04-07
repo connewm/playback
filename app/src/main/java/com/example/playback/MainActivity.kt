@@ -1,5 +1,6 @@
 package com.example.playback
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        db = DBManager(this.applicationContext)
+        db = DBManager(this)
         db.writableDatabase
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -148,14 +149,14 @@ class MainActivity : AppCompatActivity() {
 
                     //TODO get unique id
                     val userId = 0
-                    val id = 1 // db.generate_record_id(userId)
+                    val id = db.generate_record_id(userId)
                     val lat: Double = 27.2038
                     val long: Double = -77.5011
 
 
                     //TODO add data to the database
-                    var newData = SpotifyPersonalData(id,userId, track.artist.name,
-                        0,track.name, track.album.name,
+                    var newData = SpotifyPersonalData(id,userId, track.artist.name.toString(),
+                        0,track.name.toString(), track.album.name.toString(),
                         "IDK YET", lat,long)
 
                     db.addData(newData)

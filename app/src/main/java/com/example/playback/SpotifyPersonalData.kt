@@ -11,7 +11,7 @@ class SpotifyPersonalData{
     var songGenre: String? = null
 
 
-    var listenLocationLatitude = 0.0
+    var listenLocationLatitude = 0.00
     var listenLocationLongitude = 0.0
 
     constructor(recordId: Int, userId: Int, artistName: String, popularityScore: Int, songName: String, albumName: String, songGenre: String, listenLocationLatitude: Double, listenLocationLongitude: Double){
