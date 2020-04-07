@@ -10,4 +10,5 @@ class MapViewModel : ViewModel() {
         value = "Welcome to the map page"
     }
     val text: LiveData<String> = _text
+
 }

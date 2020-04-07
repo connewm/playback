@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        db = DBManager(this)
+        //db = DBManager(this.applicationContext)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
-                R.id.navigation_social,
                 R.id.navigation_maps,
                 R.id.navigation_personal
             )
