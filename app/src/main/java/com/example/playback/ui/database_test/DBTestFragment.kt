@@ -21,6 +21,7 @@ import com.example.playback.SpotifyPersonalData
 import com.example.playback.ui.personal.PersonalViewModel
 import kotlinx.android.synthetic.main.fragment_database.*
 import kotlinx.android.synthetic.main.fragment_personal.*
+import org.w3c.dom.Text
 import java.lang.Exception
 
 class DBTestFragment : Fragment(), View.OnClickListener
@@ -38,33 +39,71 @@ class DBTestFragment : Fragment(), View.OnClickListener
         val root =
             inflater.inflate(R.layout.fragment_database, container, false)
 
+        val record_id: EditText = root.findViewById(R.id.recordID)
+        val user_id: EditText = root.findViewById(R.id.userID)
+        val artist_name: EditText = root.findViewById(R.id.artistName)
+        val popularity_score: EditText = root.findViewById(R.id.popularityScore)
+        val songName: EditText = root.findViewById(R.id.songName)
+        val albumName: EditText = root.findViewById(R.id.albumName)
+        val songGenre: EditText = root.findViewById(R.id.songGenre)
+
+        val db_text_test: TextView = root.findViewById(R.id.test_db)
+
+        // create db
+        try {
+
+            db = DBManager(this.context as Context)
+            Log.w("asdf", "db creation succeeded")
+        } catch(e: Exception)
+        {
+            Log.w("asdf", "db creation failed")
+        }
+
+
         val addButton = root.findViewById<Button>(R.id.add_data_button)
-        addButton.setOnClickListener(this)
+        addButton.setOnClickListener {
+
+
+            var response: Boolean = false
+            try {
+                db.writableDatabase
+                response = db.addData(
+                    SpotifyPersonalData(
+                        Integer.parseInt(record_id.text.toString()),
+                        Integer.parseInt(user_id.text.toString()),
+                        artist_name.text.toString(),
+                        Integer.parseInt(popularity_score.text.toString()),
+                        songName.text.toString(),
+                        albumName.text.toString(),
+                        songGenre.text.toString(),
+                        0.0,
+                        0.0
+                    )
+                )
+
+                Log.w("asdf", "in add try block")
+            } catch(e: Exception) {
+                Log.w("asdf", "${e.printStackTrace()}")
+                Log.w("asdf", "add not successful")
+            }
+            if (response)
+            {
+                Log.w("asdf", "add was successful!!")
+            } else {
+                Log.w("asdf", "was not successful :(")
+            }
+
+
+
+        }
         val fetchButton = root.findViewById<Button>(R.id.find_data_button)
-        fetchButton.setOnClickListener(this)
+        fetchButton.setOnClickListener{
+            val arr = db.findData(0)
+            val entry: SpotifyPersonalData = arr.get(0)
+            db_text_test.text = "Record ID: ${entry.recordId}, User ID: ${entry.userId}, Artist Name: ${entry.artistName}"
+        }
         val removeButton = root.findViewById<Button>(R.id.delete_data_button)
         removeButton.setOnClickListener(this)
-
-        val record_id: TextView = root.findViewById(R.id.recordID)
-        val user_id: TextView = root.findViewById(R.id.userID)
-        val artist_name: TextView = root.findViewById(R.id.artistName)
-        val popularity_score: TextView = root.findViewById(R.id.popularityScore)
-
-        dbTestViewModel.recordID_text.observe(this, Observer {
-            record_id.text = it
-        })
-
-        dbTestViewModel.userID_text.observe(this, Observer {
-            user_id.text = it
-        })
-
-        dbTestViewModel.artistName_text.observe(this, Observer {
-            artist_name.text = it
-        })
-
-        dbTestViewModel.popularityScore_text.observe(this, Observer {
-            popularity_score.text = it
-        })
 
         return root
     }
@@ -75,26 +114,52 @@ class DBTestFragment : Fragment(), View.OnClickListener
             when(v.id)
             {
                 R.id.add_data_button -> {
-                    dbTestViewModel.recordID_text.value = "Adding record ID"
-                    dbTestViewModel.userID_text.value = "Adding user ID"
-                    dbTestViewModel.artistName_text.value = "Adding artist name"
-                    dbTestViewModel.popularityScore_text.value = "Adding popularity score"
+
                     try {
-                        Log.w("asdf", "db creation succeeded")
+
                         db = DBManager(this.context as Context)
+                        Log.w("asdf", "db creation succeeded")
                     } catch(e: Exception)
                     {
                         Log.w("asdf", "db creation failed")
                     }
                     val record_id = 0
                     val user_id = 0
-                    val artistName: String = (v.findViewById(R.id.artistName) as EditText).text.toString()
-                    val popScore: Int = Integer.parseInt((v.findViewById(R.id.popularityScore) as EditText).text.toString())
-                    val songName: String = (v.findViewById(R.id.songName) as EditText).text.toString()
-                    val albumName: String = (v.findViewById(R.id.albumName) as EditText).text.toString()
-                    val songGenre: String = (v.findViewById(R.id.songGenre) as EditText).text.toString()
-                    val songLatitude: Double = String.toDouble((v.findViewById(R.id.songLatitude) as EditText).text.toString())
+                    val artistName: String = dbTestViewModel.artistName_text.value.toString()
+                    val popScore: Int = Integer.parseInt(dbTestViewModel.popularityScore_text.value.toString())
+                    val songName: String = dbTestViewModel.songName_text.value.toString()
+                    val albumName: String = dbTestViewModel.albumName_text.value.toString()
+                    val songGenre: String = dbTestViewModel.songGenre_text.value.toString()
+                    val songLatitude: Double = dbTestViewModel.songLat_text.value as Double
+                    val songLongitude: Double = dbTestViewModel.songLong_text.value as Double
 
+                    var response: Boolean = false
+                    try {
+                        response = db.addData(
+                            SpotifyPersonalData(
+                                record_id,
+                                user_id,
+                                artistName,
+                                0,
+                                songName,
+                                albumName,
+                                songGenre,
+                                songLatitude,
+                                songLongitude
+                            )
+                        )
+
+                        Log.w("asdf", "in add try block")
+                    } catch(e: Exception) {
+                        Log.w("asdf", "add not successful")
+                    }
+
+                    if (response)
+                    {
+                        Log.w("asdf", "add was successful!!")
+                    } else {
+                        Log.w("asdf", "was not successful :(")
+                    }
                 }
                 R.id.find_data_button -> {
                     dbTestViewModel.recordID_text.value = "Looking for record ID"

@@ -7,6 +7,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteException
+import android.util.Log
 import com.example.playback.ui.database_test.DBContract
 
 class DBManager(context: Context) :
@@ -16,11 +17,10 @@ class DBManager(context: Context) :
     companion object {
         private val DATABASE_VERSION = 1
         val DATABASE_NAME = "PersonalSpotifyDB.db"
-        const val tablePersonalData = "PersonalData"
         private val SQL_CREATE_ENTRIES = ("CREATE TABLE " +
-                tablePersonalData + "("
+                DBContract.DataEntry.TABLE_NAME + "("
                 + DBContract.DataEntry.COLUMN_RECORD_ID + " INTEGER PRIMARY KEY," +
-                DBContract.DataEntry.COLUMN_USER_ID + " INTEGER PRIMARY KEY,"
+                DBContract.DataEntry.COLUMN_USER_ID + " INTEGER,"
                 + DBContract.DataEntry.COLUMN_ARTIST_NAME + " TEXT," + DBContract.DataEntry.COLUMN_POPULARITY_SCORE + " INTEGER," +
                 DBContract.DataEntry.COLUMN_SONG_NAME + " TEXT," + DBContract.DataEntry.COLUMN_ALBUM_NAME + " TEXT," + DBContract.DataEntry.COLUMN_SONG_GENRE + " TEXT," +
                 DBContract.DataEntry.COLUMN_SONG_LATITUDE + " REAL," + DBContract.DataEntry.COLUMN_SONG_LONGITUDE + " REAL)")
@@ -56,8 +56,13 @@ class DBManager(context: Context) :
         values.put(DBContract.DataEntry.COLUMN_SONG_LATITUDE, data.listenLocationLatitude)
         values.put(DBContract.DataEntry.COLUMN_SONG_LONGITUDE, data.listenLocationLongitude)
 
-        val newRowId = db.insert(DBContract.DataEntry.TABLE_NAME, null, values)
-        return true
+        try {
+            val newRowId = db.insert(DBContract.DataEntry.TABLE_NAME, null, values)
+            return true
+        } catch(e: Exception) {
+            Log.w("asdf", "Add failed in DBManager")
+            return false
+        }
     }
 
     // reads all records for a specific user

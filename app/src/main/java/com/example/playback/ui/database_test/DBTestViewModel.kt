@@ -19,4 +19,24 @@ class DBTestViewModel : ViewModel()
     var popularityScore_text = MutableLiveData<String>().apply {
         value = "No popularity score"
     }
+
+    var songName_text = MutableLiveData<String>().apply {
+        value = "No song name"
+    }
+
+    var albumName_text = MutableLiveData<String>().apply {
+        value = "No album name"
+    }
+
+    var songGenre_text = MutableLiveData<String>().apply {
+        value = "No song genre"
+    }
+
+    var songLat_text = MutableLiveData<Double>().apply {
+        value = 0.0
+    }
+
+    var songLong_text = MutableLiveData<Double>().apply {
+        value = 0.0
+    }
 }
