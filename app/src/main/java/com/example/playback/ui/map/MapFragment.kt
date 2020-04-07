@@ -50,20 +50,6 @@ class MapFragment : Fragment() {
         })
         */
 
-        var pie : Pie = AnyChart.pie()
-        var data = ArrayList<DataEntry>()
-
-        data.add(  ValueDataEntry("John", 10000))
-        data.add(ValueDataEntry("Jake", 12000))
-        data.add( ValueDataEntry("Peter", 18000))
-
-        pie.data(data);
-
-       var anyChartView:  AnyChartView  = root.findViewById(R.id.any_chart_view);
-        anyChartView.setChart(pie)
-
-
-
 
         return root
     }

@@ -3,6 +3,7 @@ package com.example.playback.ui.personal
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +14,15 @@ import com.example.playback.R
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.anychart.AnyChart
+import com.anychart.AnyChartView
+import com.anychart.chart.common.dataentry.DataEntry
+import com.anychart.chart.common.dataentry.ValueDataEntry
+import com.anychart.charts.Pie
 import com.example.playback.DBManager
 import com.example.playback.SpotifyPersonalData
+import java.lang.Exception
+import java.util.ArrayList
 
 
 class PersonalFragment : Fragment(), View.OnClickListener
@@ -61,6 +69,30 @@ class PersonalFragment : Fragment(), View.OnClickListener
         personalViewModel.pref_filter_text.observe(this, Observer {
             pref_tv.text = it
         })
+
+        try {
+
+            var db = DBManager(this.context as Context)
+            Log.w("asdf", "db creation succeeded")
+
+
+            var pie : Pie = AnyChart.pie()
+            var data = ArrayList<DataEntry>()
+
+            data.add(ValueDataEntry("John", 10000))
+            data.add(ValueDataEntry("Jake", 12000))
+            data.add(ValueDataEntry("Peter", 18000))
+
+            pie.data(data);
+
+            var anyChartView: AnyChartView = root.findViewById(R.id.any_chart_view);
+            anyChartView.setChart(pie)
+
+        } catch(e: Exception)
+        {
+            Log.w("asdf", "db creation failed")
+        }
+
 
         return root
     }

@@ -1,5 +1,6 @@
 package com.example.playback.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.playback.DBManager
 import com.example.playback.R
 import com.example.playback.SpotifyPersonalData
+import java.lang.Exception
 
 class HomeFragment : Fragment() {
 
@@ -51,24 +53,35 @@ class HomeFragment : Fragment() {
         Log.v(TAG,"obtaining spotify data")
         homeViewModel.data.observe(this, Observer {  //get the data from the variable text from the viewModel, this data cn be changed live, such as in a recyceler view
 
-            var dataForRecylerView: Map<String,Int> = it
-            Log.v(TAG,"the data is: " + dataForRecylerView.toString())
+            try {
+                var db = DBManager(this.context as Context)
+                Log.w("asdf", "connection successful")
 
-            viewManager = LinearLayoutManager(this.activity)
-            viewAdapter = SongAdapter(dataForRecylerView.toList().toTypedArray())
-            Log.v(TAG,"the data as an array: " + dataForRecylerView.toString().toList().toTypedArray())
-            
-            recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view).apply {
-                // use this setting to improve performance if you know that changes
-                // in content do not change the layout size of the RecyclerView
-                setHasFixedSize(true)
 
-                // use a linear layout manager
-                layoutManager = viewManager
+                var dataForRecylerView: Map<String,Int> = it
+                Log.v(TAG,"the data is: " + dataForRecylerView.toString())
 
-                // specify an viewAdapter (see also next example)
-                adapter = viewAdapter
+
+                viewManager = LinearLayoutManager(this.activity)
+                viewAdapter = SongAdapter(dataForRecylerView.toList().toTypedArray())
+                Log.v(TAG,"the data as an array: " + dataForRecylerView.toString().toList().toTypedArray())
+
+                recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view).apply {
+                    // use this setting to improve performance if you know that changes
+                    // in content do not change the layout size of the RecyclerView
+                    setHasFixedSize(true)
+
+                    // use a linear layout manager
+                    layoutManager = viewManager
+
+                    // specify an viewAdapter (see also next example)
+                    adapter = viewAdapter
+                }
+            } catch(e: Exception)
+            {
+                Log.w("asdf", "connection unsuccessful")
             }
+
         })
 
 
