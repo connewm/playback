@@ -7,6 +7,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteException
+import android.view.View
 import com.example.playback.ui.database_test.DBContract
 
 class DBManager(context: Context) :
@@ -21,7 +22,8 @@ class DBManager(context: Context) :
                 tablePersonalData + "("
                 + DBContract.DataEntry.COLUMN_RECORD_ID + " INTEGER PRIMARY KEY," +
                 DBContract.DataEntry.COLUMN_USER_ID + " INTEGER PRIMARY KEY,"
-                + DBContract.DataEntry.COLUMN_ARTIST_NAME + " TEXT," + DBContract.DataEntry.COLUMN_POPULARITY_SCORE + " INTEGER" + ")")
+                + DBContract.DataEntry.COLUMN_ARTIST_NAME + " TEXT," + DBContract.DataEntry.COLUMN_POPULARITY_SCORE + " INTEGER," +
+                DBContract.DataEntry.COLUMN_SONG_NAME + " TEXT," + DBContract.DataEntry.COLUMN_ALBUM_NAME + " TEXT," + DBContract.DataEntry.COLUMN_SONG_GENRE + "TEXT)")
         private val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + DBContract.DataEntry.TABLE_NAME
     }
 
@@ -41,7 +43,45 @@ class DBManager(context: Context) :
     }
 
     @Throws(SQLiteConstraintException::class)
+    fun showRecent():ArrayList<SpotifyPersonalData>{
+        val data = ArrayList<SpotifyPersonalData>()
+        val db = writableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery("SELECT * FROM" + DBContract.DataEntry.TABLE_NAME + "ORDER BY" + DBContract.DataEntry.COLUMN_RECORD_ID + "DESC LIMIT 10",null)
+        }catch (e: SQLiteException) {
+            // if table not yet present, create it
+            db.execSQL(SQL_CREATE_ENTRIES)
+            return ArrayList()
+        }
+
+        var recordid: Int
+        var userid:Int
+        var artistname: String
+        var popularityscore: Int
+        var songName: String
+        var albumName: String
+        var songGenre: String
+        if (cursor!!.moveToFirst()) {
+            while (cursor.isAfterLast == false) {
+                recordid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_RECORD_ID)))
+                userid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_USER_ID)))
+                artistname = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ARTIST_NAME))
+                popularityscore = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_POPULARITY_SCORE)))
+                songName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_NAME))
+                albumName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ALBUM_NAME))
+                songGenre = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_GENRE))
+
+                data.add(SpotifyPersonalData(recordid, userid,artistname, popularityscore, songName,albumName,songGenre))
+                cursor.moveToNext()
+            }
+        }
+        return data
+    }
+
+    @Throws(SQLiteConstraintException::class)
     fun addData(data : SpotifyPersonalData):Boolean {
+
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(DBContract.DataEntry.COLUMN_RECORD_ID, data.recordId)
@@ -53,6 +93,7 @@ class DBManager(context: Context) :
         return true
     }
 
+    // reads all records for a specific user
     @Throws(SQLiteConstraintException::class)
     fun findData(userid: Int): ArrayList<SpotifyPersonalData> {
         val data = ArrayList<SpotifyPersonalData>()
@@ -69,13 +110,19 @@ class DBManager(context: Context) :
         var recordid: Int
         var artistname: String
         var popularityscore: Int
+        var songName: String
+        var albumName: String
+        var songGenre: String
         if (cursor!!.moveToFirst()) {
             while (cursor.isAfterLast == false) {
                 recordid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_RECORD_ID)))
                 artistname = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ARTIST_NAME))
                 popularityscore = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_POPULARITY_SCORE)))
+                songName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_NAME))
+                albumName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ALBUM_NAME))
+                songGenre = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_GENRE))
 
-                data.add(SpotifyPersonalData(recordid, userid, artistname, popularityscore))
+                data.add(SpotifyPersonalData(recordid, userid, artistname, popularityscore, songName, albumName, songGenre))
                 cursor.moveToNext()
             }
         }
@@ -97,77 +144,51 @@ class DBManager(context: Context) :
         return true
     }
 
-    fun read_specific_record(record_id: Int): SpotPersonalData?
+    fun read_specific_record(record_id: Int): SpotifyPersonalData
     {
         val db = writableDatabase
         var cursor: Cursor? = null
         try {
-            cursor = db.rawQuery("select * from " + PersonalSpotSchema.PersonalEntry.TABLE_NAME + " where " + PersonalSpotSchema.PersonalEntry.COL_RECORD_ID
+            cursor = db.rawQuery("select * from " + DBContract.DataEntry.TABLE_NAME + " where " + DBContract.DataEntry.COLUMN_RECORD_ID
                     + "='" + record_id + "'", null)
         } catch(e: SQLiteException)
         {
             db.execSQL(SQL_CREATE_ENTRIES)
-            return null
+            return SpotifyPersonalData(0, 0, "", 0, "", "", "")
         }
         var user_id: Int = 0
         var artist: String = ""
         var pop: Int = 0
+        var songName: String = ""
+        var albumName: String = ""
+        var songGenre: String = ""
         if (cursor!!.moveToFirst())
         {
 
-            user_id = cursor.getInt(cursor.getColumnIndex(PersonalSpotSchema.PersonalEntry.COL_USER_ID))
-            artist = cursor.getString(cursor.getColumnIndex(PersonalSpotSchema.PersonalEntry.COL_ARTIST_NAME))
-            pop = cursor.getInt(cursor.getColumnIndex(PersonalSpotSchema.PersonalEntry.COL_POP_SCORE))
+            user_id = cursor.getInt(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_USER_ID))
+            artist = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ARTIST_NAME))
+            pop = cursor.getInt(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_POPULARITY_SCORE))
+            songName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_NAME))
+            albumName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ALBUM_NAME))
+            songGenre = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_GENRE))
 
         }
-        return SpotPersonalData(record_id, user_id, artist, pop)
-    }
-
-    // read all records for that specific user (will likely be multiple)
-    fun read_user_personal_data(user_id: Int): java.util.ArrayList<SpotPersonalData>
-    {
-        val personal_records = java.util.ArrayList<SpotPersonalData>()
-        val db = writableDatabase
-        var cursor: Cursor? = null
-        try {
-            cursor = db.rawQuery("select * from " + PersonalSpotSchema.PersonalEntry.TABLE_NAME + " where " + PersonalSpotSchema.PersonalEntry.COL_USER_ID + "='" + user_id
-                    +"'", null)
-        } catch(e: SQLiteException)
-        {
-            db.execSQL(SQL_CREATE_ENTRIES)
-            return java.util.ArrayList()
-        }
-
-        var artist: String
-        var pop: Int
-        var record_id: Int
-        if (cursor!!.moveToFirst())
-        {
-            while(!cursor.isAfterLast)
-            {
-                record_id = cursor.getInt(cursor.getColumnIndex(PersonalSpotSchema.PersonalEntry.COL_RECORD_ID))
-                artist = cursor.getString(cursor.getColumnIndex(PersonalSpotSchema.PersonalEntry.COL_ARTIST_NAME))
-                pop = cursor.getInt(cursor.getColumnIndex(PersonalSpotSchema.PersonalEntry.COL_POP_SCORE))
-                personal_records.add(SpotPersonalData(record_id, user_id, artist, pop))
-                cursor.moveToNext()
-            }
-        }
-        return personal_records
+        return SpotifyPersonalData(record_id, user_id, artist, pop, songName, albumName, songGenre)
     }
 
     // record contains the new record to update the old record with
     @Throws(SQLiteConstraintException::class)
-    fun update_user_personal(record: SpotPersonalData): Boolean
+    fun update_user_personal(record: SpotifyPersonalData): Boolean
     {
         val db = writableDatabase
         var cursor: Cursor? = null
         var cv: ContentValues = ContentValues()
-        cv.put(PersonalSpotSchema.PersonalEntry.COL_USER_ID, record.user_id)
-        cv.put(PersonalSpotSchema.PersonalEntry.COL_ARTIST_NAME, record.artist_name)
-        cv.put(PersonalSpotSchema.PersonalEntry.COL_POP_SCORE, record.popularity_score)
+        cv.put(DBContract.DataEntry.COLUMN_USER_ID, record.userId)
+        cv.put(DBContract.DataEntry.COLUMN_ARTIST_NAME, record.artistName)
+        cv.put(DBContract.DataEntry.COLUMN_POPULARITY_SCORE, record.popularityScore)
         try
         {
-            db.update(PersonalSpotSchema.PersonalEntry.TABLE_NAME, cv, "_id="+record.record_id, null)
+            db.update(DBContract.DataEntry.TABLE_NAME, cv, "_id="+record.recordId, null)
         } catch(e: SQLiteException)
         {
             return false
