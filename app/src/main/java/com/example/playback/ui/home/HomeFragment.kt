@@ -59,6 +59,7 @@ class HomeFragment : Fragment() {
 
             var dataSet: Array<Pair<String?, String?>> =  arrayOf()
                 try {
+                    var db = DBManager(this.context as Context)
                     dataSet = db.showRecent().map { x -> Pair(x.songName,x.artistName) }.toTypedArray()
                     Log.w("asdf", "shens code worked WOW!")
                 }catch(e:Exception){
