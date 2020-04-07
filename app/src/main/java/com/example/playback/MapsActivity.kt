@@ -121,10 +121,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                         first_entry.listenLocationLatitude - differential,
                         first_entry.listenLocationLongitude
                     )
-                var icon: Bitmap = BitmapFactory.decodeResource(this.applicationContext.resources, R.drawable.ic_social)
+
                 val markerOptions =
                     MarkerOptions().position(marker_location).title("${first_entry.songName}")
-                        .snippet("By: ${first_entry.artistName}").icon(BitmapDescriptorFactory.fromBitmap(icon))
+                        .snippet("By: ${first_entry.artistName}")
                 mMap.addMarker(markerOptions).showInfoWindow()
                 differential -= 0.001
                 prev_entry_song = first_entry.songName.toString()
