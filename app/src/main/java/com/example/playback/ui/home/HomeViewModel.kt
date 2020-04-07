@@ -12,25 +12,25 @@ class HomeViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
     }
-    private val _data = MutableLiveData< Map<String,Int>>().apply {
+    private val _data = MutableLiveData< Map<String,String>>().apply {
         value =  getSpotifyData()
     }
     val text: LiveData<String> = _text
-    var data: LiveData<Map<String,Int>> = _data
+    var data: LiveData<Map<String,String>> = _data
 
 
     //TODO change to something like get the song data from the database then querie spotify for the album covers or save them?
-    fun getSpotifyData( ): Map<String,Int> {
+    fun getSpotifyData( ): Map<String, String> {
 
 
 
         //var db = DBManager()
 
-        var data = mutableMapOf<String,Int>()
+        var data = mutableMapOf<String,String>()
         for (x in 0..30){
             val key = "Test" + x.toString()
-            data[key] = 0
+            data[key] = "0"
         }
-        return data.toList().sortedBy { (_, value) -> value}.toMap()
+        return data
     }
 }

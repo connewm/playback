@@ -235,7 +235,7 @@ class DBManager(context: Context) :
                 songGenre = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_GENRE))
 
                 data.add(SpotifyPersonalData(recordid, userid,artistname, popularityscore, songName,albumName,songGenre, 0.0 , 0.0))
-                cursor.moveToNext()
+                cursor.moveToPrevious()
             }
         }
         return data

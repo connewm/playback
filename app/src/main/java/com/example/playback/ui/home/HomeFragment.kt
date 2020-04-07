@@ -53,20 +53,28 @@ class HomeFragment : Fragment() {
         Log.v(TAG,"obtaining spotify data")
         homeViewModel.data.observe(this, Observer {  //get the data from the variable text from the viewModel, this data cn be changed live, such as in a recyceler view
 
-            try {
-                var db = DBManager(this.context as Context)
-                var dataSet: Array<Pair<String?, String?>> = db.showRecent().map { x -> Pair(x.songName,x.artistName) }.toTypedArray()
+
+            var db = DBManager(this.context as Context)
+
+            var dataSet: Array<Pair<String?, String?>> =  arrayOf()
+                try {
+                    dataSet = db.showRecent().map { x -> Pair(x.songName,x.artistName) }.toTypedArray()
+                }catch(e:Exception){
+                    dataSet = it.toList().toTypedArray()
+                }
+
 
                 Log.w("asdf", "connection successful")
 
 
-                var dataForRecylerView: Map<String,Int> = it
-                Log.v(TAG,"the data is: " + dataForRecylerView.toString())
+                //var dataSet: Map<String,String> = it
+                //Log.v(TAG,"the data is: " + dataForRecylerView.toString())
 
 
                 viewManager = LinearLayoutManager(this.activity)
-                viewAdapter = SongAdapter(dataSet)
-                Log.v(TAG,"the data as an array: " + dataForRecylerView.toString().toList().toTypedArray())
+                viewAdapter = SongAdapter(dataSet.toList().toTypedArray())
+                //Log.v(TAG,"the data as an array: " + dataForRecylerView.toString().toList().toTypedArray())
+                Log.v(TAG,"the data as an array: " + dataSet)
 
                 recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view).apply {
                     // use this setting to improve performance if you know that changes
@@ -79,10 +87,7 @@ class HomeFragment : Fragment() {
                     // specify an viewAdapter (see also next example)
                     adapter = viewAdapter
                 }
-            } catch(e: Exception)
-            {
-                Log.w("asdf", "connection unsuccessful")
-            }
+
 
         })
 
