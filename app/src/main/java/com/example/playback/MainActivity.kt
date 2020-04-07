@@ -60,9 +60,9 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+
         db = DBManager(this.applicationContext)
         db.writableDatabase
-
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 

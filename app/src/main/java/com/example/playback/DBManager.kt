@@ -17,7 +17,6 @@ class DBManager(context: Context) :
     companion object  {
         private val DATABASE_VERSION = 1
         val DATABASE_NAME = "PersonalSpotifyDB.db"
-        const val tablePersonalData = "PersonalData"
         private val SQL_CREATE_ENTRIES = ("CREATE TABLE " +
                 DBContract.DataEntry.TABLE_NAME + "("
                 + DBContract.DataEntry.COLUMN_RECORD_ID + " INTEGER PRIMARY KEY," +
@@ -59,8 +58,13 @@ class DBManager(context: Context) :
         values.put(DBContract.DataEntry.COLUMN_SONG_LATITUDE, data.listenLocationLatitude)
         values.put(DBContract.DataEntry.COLUMN_SONG_LONGITUDE, data.listenLocationLongitude)
 
-        val newRowId = db.insert(DBContract.DataEntry.TABLE_NAME, null, values)
-        return true
+        try {
+            val newRowId = db.insert(DBContract.DataEntry.TABLE_NAME, null, values)
+            return true
+        } catch(e: Exception) {
+            Log.w("asdf", "Add failed in DBManager")
+            return false
+        }
     }
 
     // reads all records for a specific user

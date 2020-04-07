@@ -10,6 +10,7 @@ class PersonalViewModel : ViewModel()
         value = "You have no time filters selected"
     }
 
+
     var pref_filter_text = MutableLiveData<String>().apply {
         value = "You have no pref filters selected"
     }
