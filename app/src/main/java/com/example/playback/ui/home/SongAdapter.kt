@@ -18,7 +18,7 @@ class SongAdapter (private val myDataset: Array<Pair<String?,String?>>) :
     // Each data item is just a string in this case that is shown in a TextView.
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val name = itemView.songNameTextView
-        val listens = itemView.amountListenTextView
+        //val listens = itemView.amountListenTextView
     }
 
 
@@ -37,8 +37,8 @@ class SongAdapter (private val myDataset: Array<Pair<String?,String?>>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.itemView.songNameTextView.text = myDataset[position].first
-        holder.itemView.amountListenTextView.text = myDataset[position].second
+        holder.itemView.songNameTextView.text = myDataset[position].first + " By: " + myDataset[position].second
+        //holder.itemView.amountListenTextView.text = myDataset[position].second
     }
 
     // Return the size of your dataset (invoked by the layout manager)
