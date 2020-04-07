@@ -210,9 +210,11 @@ class DBManager(context: Context) :
         val db = writableDatabase
         var cursor: Cursor? = null
         try {
-            cursor = db.rawQuery("select * from " + DBContract.DataEntry.TABLE_NAME + " ORDER BY " + DBContract.DataEntry.COLUMN_RECORD_ID + " DESC LIMIT  10;",null)
+            cursor = db.rawQuery("select * from " + DBContract.DataEntry.TABLE_NAME + " ORDER BY " + DBContract.DataEntry.COLUMN_RECORD_ID + " LIMIT " + 10,null)
+            Log.w("asdf", "show recent successful")
         }catch (e: SQLiteException) {
             // if table not yet present, create it
+            Log.w("asdf", "${e.printStackTrace()}")
             db.execSQL(SQL_CREATE_ENTRIES)
             return ArrayList()
         }
@@ -224,8 +226,8 @@ class DBManager(context: Context) :
         var songName: String
         var albumName: String
         var songGenre: String
-        if (cursor!!.moveToFirst()) {
-            while (cursor.isAfterLast == false) {
+        if (cursor!!.moveToLast()) {
+            while (cursor.isBeforeFirst == false) {
                 recordid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_RECORD_ID)))
                 userid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_USER_ID)))
                 artistname = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ARTIST_NAME))
