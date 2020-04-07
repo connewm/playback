@@ -1,5 +1,7 @@
 package com.example.playback.ui.map
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +25,7 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
+import com.example.playback.MapsActivity
 //import com.anychart.sample.R;
 
 import java.util.ArrayList;
@@ -40,17 +43,19 @@ class MapFragment : Fragment() {
     ): View? {
 
         Log.v(TAG,"called onCreateView")
-        val root = inflater.inflate(R.layout.fragment_maps, container, false)
-
-        /*mapViewModel =
+        mapViewModel =
             ViewModelProviders.of(this).get(MapViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_maps, container, false)
         val textView: TextView = root.findViewById(R.id.map_page)
         mapViewModel.text.observe(this, Observer {
             textView.text = it
         })
-        */
 
+        // create maps activity
+        val maps: Intent = Intent(this.context as Context, MapsActivity::class.java)
+        startActivity(maps)
 
         return root
     }
 }
+
