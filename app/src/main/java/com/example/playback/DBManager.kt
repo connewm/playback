@@ -14,7 +14,7 @@ class DBManager(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME,
         null, DATABASE_VERSION) {
 
-    companion object {
+    companion object  {
         private val DATABASE_VERSION = 1
         val DATABASE_NAME = "PersonalSpotifyDB.db"
         const val tablePersonalData = "PersonalData"

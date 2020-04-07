@@ -61,6 +61,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         db = DBManager(this.applicationContext)
+        db.writableDatabase
+
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -146,9 +148,10 @@ class MainActivity : AppCompatActivity() {
 
                     //TODO get unique id
                     val userId = 0
-                    val id = db.generate_record_id(userId)
+                    val id = 1 // db.generate_record_id(userId)
                     val lat: Double = 27.2038
                     val long: Double = -77.5011
+
 
                     //TODO add data to the database
                     var newData = SpotifyPersonalData(id,userId, track.artist.name,
