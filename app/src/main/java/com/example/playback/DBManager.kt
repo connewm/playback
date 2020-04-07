@@ -197,7 +197,7 @@ class DBManager(context: Context) :
         }
 
         var record_id: Int = -2
-        if (cursor!!.moveToFirst())
+        if (cursor!!.moveToLast())
         {
             record_id = cursor.getInt(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_RECORD_ID))
         }
