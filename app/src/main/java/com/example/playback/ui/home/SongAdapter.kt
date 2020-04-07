@@ -9,7 +9,7 @@ import com.example.playback.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.main_page_text_view.view.*
 
-class SongAdapter (private val myDataset: Array<Pair<String,Int>>) :
+class SongAdapter (private val myDataset: Array<Pair<String?,String?>>) :
     RecyclerView.Adapter<SongAdapter.MyViewHolder>() {
 
     // Provide a reference to the views for each data item
@@ -38,7 +38,7 @@ class SongAdapter (private val myDataset: Array<Pair<String,Int>>) :
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.itemView.songNameTextView.text = myDataset[position].first
-        holder.itemView.amountListenTextView.text = myDataset[position].second.toString()
+        holder.itemView.amountListenTextView.text = myDataset[position].second
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -79,9 +79,11 @@ class PersonalFragment : Fragment(), View.OnClickListener
             var pie : Pie = AnyChart.pie()
             var data = ArrayList<DataEntry>()
 
-            data.add(ValueDataEntry("John", 10000))
-            data.add(ValueDataEntry("Jake", 12000))
-            data.add(ValueDataEntry("Peter", 18000))
+            data.add(ValueDataEntry("mac Miller", 20))
+            data.add(ValueDataEntry("Kanye West", 15))
+            data.add(ValueDataEntry("Tame Impala", 11))
+            data.add(ValueDataEntry("San Cisco", 9))
+            data.add(ValueDataEntry("Black Keys", 32))
 
             pie.data(data);
 

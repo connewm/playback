@@ -92,7 +92,7 @@
             <LinearLayout
                 android:id="@+id/filter_selector_container"
                 android:layout_width="match_parent"
-                android:layout_height="95dp"
+                android:layout_height="65dp"
                 android:gravity="center">
 
                 <Button

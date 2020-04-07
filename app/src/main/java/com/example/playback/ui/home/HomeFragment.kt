@@ -40,13 +40,13 @@ class HomeFragment : Fragment() {
         //create the viewModel which will pull the data needed from the database
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
-
+        /*
         //creates a text view then sets that textViews text, to the data from the model
         //creates the view based off the xml at R.id.text_home which is in the home fragment layout xml
         val textView: TextView = root.findViewById(R.id.text_home)
         homeViewModel.text.observe(this, Observer {  //get the data from the variable text from the viewModel, this data cn be changed live, such as in a recyceler view
             textView.text = it
-        })
+        })*/
 
 
 
@@ -55,6 +55,8 @@ class HomeFragment : Fragment() {
 
             try {
                 var db = DBManager(this.context as Context)
+                var dataSet: Array<Pair<String?, String?>> = db.showRecent().map { x -> Pair(x.songName,x.artistName) }.toTypedArray()
+
                 Log.w("asdf", "connection successful")
 
 
@@ -63,7 +65,7 @@ class HomeFragment : Fragment() {
 
 
                 viewManager = LinearLayoutManager(this.activity)
-                viewAdapter = SongAdapter(dataForRecylerView.toList().toTypedArray())
+                viewAdapter = SongAdapter(dataSet)
                 Log.v(TAG,"the data as an array: " + dataForRecylerView.toString().toList().toTypedArray())
 
                 recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view).apply {

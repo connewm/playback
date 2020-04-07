@@ -204,4 +204,41 @@ class DBManager(context: Context) :
 
         return record_id + 1
     }
+    @Throws(SQLiteConstraintException::class)
+    fun showRecent():ArrayList<SpotifyPersonalData>{
+        val data = ArrayList<SpotifyPersonalData>()
+        val db = writableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery("SELECT * FROM" + DBContract.DataEntry.TABLE_NAME + "ORDER BY" + DBContract.DataEntry.COLUMN_RECORD_ID + "DESC LIMIT 10",null)
+        }catch (e: SQLiteException) {
+            // if table not yet present, create it
+            db.execSQL(SQL_CREATE_ENTRIES)
+            return ArrayList()
+        }
+
+        var recordid: Int
+        var userid:Int
+        var artistname: String
+        var popularityscore: Int
+        var songName: String
+        var albumName: String
+        var songGenre: String
+        if (cursor!!.moveToFirst()) {
+            while (cursor.isAfterLast == false) {
+                recordid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_RECORD_ID)))
+                userid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_USER_ID)))
+                artistname = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ARTIST_NAME))
+                popularityscore = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_POPULARITY_SCORE)))
+                songName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_NAME))
+                albumName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ALBUM_NAME))
+                songGenre = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_GENRE))
+
+                data.add(SpotifyPersonalData(recordid, userid,artistname, popularityscore, songName,albumName,songGenre, 0.0 , 0.0))
+                cursor.moveToNext()
+            }
+        }
+        return data
+    }
+
 }
