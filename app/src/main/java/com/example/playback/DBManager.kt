@@ -226,6 +226,9 @@ class DBManager(context: Context) :
         var songName: String
         var albumName: String
         var songGenre: String
+
+        var prev_song: String = ""
+
         if (cursor!!.moveToLast()) {
             while (cursor.isBeforeFirst == false) {
                 recordid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_RECORD_ID)))
@@ -235,9 +238,11 @@ class DBManager(context: Context) :
                 songName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_NAME))
                 albumName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ALBUM_NAME))
                 songGenre = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_GENRE))
-
-                data.add(SpotifyPersonalData(recordid, userid,artistname, popularityscore, songName,albumName,songGenre, 0.0 , 0.0))
+                if (!songName.equals(prev_song)) {
+                    data.add(SpotifyPersonalData(recordid, userid,artistname, popularityscore, songName,albumName,songGenre, 0.0 , 0.0))
+                }
                 cursor.moveToPrevious()
+                prev_song = songName
             }
         }
         return data
