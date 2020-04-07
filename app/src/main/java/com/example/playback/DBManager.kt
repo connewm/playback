@@ -210,7 +210,7 @@ class DBManager(context: Context) :
         val db = writableDatabase
         var cursor: Cursor? = null
         try {
-            cursor = db.rawQuery("SELECT * FROM" + DBContract.DataEntry.TABLE_NAME + "ORDER BY" + DBContract.DataEntry.COLUMN_RECORD_ID + "DESC LIMIT 10",null)
+            cursor = db.rawQuery("select * from " + DBContract.DataEntry.TABLE_NAME + " ORDER BY " + DBContract.DataEntry.COLUMN_RECORD_ID + " DESC LIMIT  10;",null)
         }catch (e: SQLiteException) {
             // if table not yet present, create it
             db.execSQL(SQL_CREATE_ENTRIES)

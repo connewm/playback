@@ -16,6 +16,7 @@ import com.example.playback.DBManager
 import com.example.playback.R
 import com.example.playback.SpotifyPersonalData
 import java.lang.Exception
+import kotlin.math.log
 
 class HomeFragment : Fragment() {
 
@@ -59,8 +60,11 @@ class HomeFragment : Fragment() {
             var dataSet: Array<Pair<String?, String?>> =  arrayOf()
                 try {
                     dataSet = db.showRecent().map { x -> Pair(x.songName,x.artistName) }.toTypedArray()
+                    Log.w("asdf", "shens code worked WOW!")
                 }catch(e:Exception){
                     dataSet = it.toList().toTypedArray()
+                    Log.w("asdf", "used defualt instead")
+                    Log.e("asdf", e.toString())
                 }
 
 
@@ -90,10 +94,6 @@ class HomeFragment : Fragment() {
 
 
         })
-
-
-
-
 
         return root
     }
