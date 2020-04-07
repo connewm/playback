@@ -210,7 +210,7 @@ class DBManager(context: Context) :
         val db = writableDatabase
         var cursor: Cursor? = null
         try {
-            cursor = db.rawQuery("select * from " + DBContract.DataEntry.TABLE_NAME + " ORDER BY " + DBContract.DataEntry.COLUMN_RECORD_ID + " LIMIT " + 10,null)
+            cursor = db.rawQuery("select * from " + DBContract.DataEntry.TABLE_NAME + " ORDER BY " + DBContract.DataEntry.COLUMN_RECORD_ID + " DESC LIMIT " + 10,null)
             Log.w("asdf", "show recent successful")
         }catch (e: SQLiteException) {
             // if table not yet present, create it
@@ -227,7 +227,6 @@ class DBManager(context: Context) :
         var albumName: String
         var songGenre: String
 
-        var prev_song: String = ""
 
         if (cursor!!.moveToLast()) {
             while (cursor.isBeforeFirst == false) {
@@ -238,11 +237,9 @@ class DBManager(context: Context) :
                 songName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_NAME))
                 albumName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ALBUM_NAME))
                 songGenre = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_GENRE))
-                if (!songName.equals(prev_song)) {
                     data.add(SpotifyPersonalData(recordid, userid,artistname, popularityscore, songName,albumName,songGenre, 0.0 , 0.0))
-                }
+
                 cursor.moveToPrevious()
-                prev_song = songName
             }
         }
         return data
