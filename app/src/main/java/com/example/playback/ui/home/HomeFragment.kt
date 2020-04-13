@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playback.DBManager
 import com.example.playback.R
+import com.example.playback.SpotifyConnector
 import com.example.playback.SpotifyPersonalData
 import java.lang.Exception
 import kotlin.math.log
@@ -21,7 +22,7 @@ import kotlin.math.log
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
-    private  val TAG = "HomeFragment"
+    private val TAG = "HomeFragment"
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -35,68 +36,37 @@ class HomeFragment : Fragment() {
     ): View? {
 
         //setup operations
-        Log.v(TAG,"called onCreateView")
+        Log.v(TAG, "called onCreateView")
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        //create the viewModel which will pull the data needed from the database
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-
-        /*
-        //creates a text view then sets that textViews text, to the data from the model
-        //creates the view based off the xml at R.id.text_home which is in the home fragment layout xml
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(this, Observer {  //get the data from the variable text from the viewModel, this data cn be changed live, such as in a recyceler view
-            textView.text = it
-        })*/
 
 
+        viewManager = LinearLayoutManager(this.activity)
 
-        Log.v(TAG,"obtaining spotify data")
-        homeViewModel.data.observe(this, Observer {  //get the data from the variable text from the viewModel, this data cn be changed live, such as in a recyceler view
-
-
-            var db = DBManager(this.context as Context)
-
-            var dataSet: Array<Pair<String?, String?>> =  arrayOf()
-                try {
-                    var db = DBManager(this.context as Context)
-                    dataSet = db.showRecent().map { x -> Pair(x.songName,x.artistName) }.toTypedArray()
-                    Log.w("asdf", "shens code worked WOW!")
-                }catch(e:Exception){
-                    dataSet = it.toList().toTypedArray()
-                    Log.w("asdf", "used defualt instead")
-                    Log.e("asdf", e.toString())
-                }
+        var sc = SpotifyConnector()
+        var recentlyPLayed = sc.getRecentlyPlayed()
+        viewAdapter = SongAdapter(recentlyPLayed)
+        //Log.v(TAG,"the data as an array: " + dataForRecylerView.toString().toList().toTypedArray())
+        //Log.v(TAG,"the data as an array: " + dataSet)
 
 
-                Log.w("asdf", "connection successful")
+        recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view).apply {
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            setHasFixedSize(true)
+            // use a linear layout manager
+            layoutManager = viewManager
+            // specify an viewAdapter (see also next example)
+            adapter = viewAdapter
+        }
 
 
-                //var dataSet: Map<String,String> = it
-                //Log.v(TAG,"the data is: " + dataForRecylerView.toString())
-
-
-                viewManager = LinearLayoutManager(this.activity)
-                viewAdapter = SongAdapter(dataSet.toList().toTypedArray())
-                //Log.v(TAG,"the data as an array: " + dataForRecylerView.toString().toList().toTypedArray())
-                Log.v(TAG,"the data as an array: " + dataSet)
-
-                recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view).apply {
-                    // use this setting to improve performance if you know that changes
-                    // in content do not change the layout size of the RecyclerView
-                    setHasFixedSize(true)
-
-                    // use a linear layout manager
-                    layoutManager = viewManager
-
-                    // specify an viewAdapter (see also next example)
-                    adapter = viewAdapter
-                }
-
-
-        })
 
         return root
     }
 
+
+    fun qurieSpotifyForAlbumCovers() {
+
+    }
 }
