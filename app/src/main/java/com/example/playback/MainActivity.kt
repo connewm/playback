@@ -34,6 +34,9 @@ import com.spotify.protocol.types.PlayerState
 import com.spotify.protocol.client.Subscription;
 import com.spotify.protocol.types.Track;
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
     lateinit var db : DBManager
@@ -47,6 +50,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.v(TAG, "called onCreate")
+
+
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        val currentDate = sdf.format(Date())
+        Log.w("date testing", "date is ${currentDate}")
+        val testInt = currentDate.substring(0, 2)
+        Log.w("get int testing", "${Integer.parseInt(testInt)}")
+
+        var cal = Calendar.getInstance()
+        val dateObj = sdf.parse(currentDate)
+        cal.time = dateObj
+
+        cal.add(Calendar.DATE, -1)
+        Log.w("date testing minus one day", "date mins one is ${sdf.format(cal.time)}")
 
         /**
          * Before creating the view for the main activity we want to read from the provided JSON
@@ -166,14 +183,15 @@ class MainActivity : AppCompatActivity() {
                         0,track.name.toString(), track.album.name.toString(),
                         "IDK YET", lat,long)
                     var response: Boolean = false
-                    try {
-                         response = db.addData(newData)
-                    } catch(e:Exception) {
-                        Log.w("asdf", "add was unsuccessful")
-                    }
+
+                    response = db.addData(newData)
+
+
 
                     if (response) {
                         Log.w("asdf", "add operation worked")
+                    } else {
+                        Log.w("asdf", "addData returned false")
                     }
                 }
             }

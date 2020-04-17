@@ -7,7 +7,7 @@
     <string name="button_time_daily">Daily</string>
     <string name="button_time_weekly">Weekly</string>
     <string name="button_time_monthly">Monthly</string>
-    <string name="button_time_yearly">Yearly</string>
+    <string name="button_time_all">All Time</string>
     <string name="button_filter_song">Song</string>
     <string name="button_filter_artist">Artist</string>
     <string name="button_filter_genre">Genre</string>

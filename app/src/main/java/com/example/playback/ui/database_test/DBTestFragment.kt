@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.playback.DBManager
+import com.example.playback.HistoryRecord
 import com.example.playback.R
 import com.example.playback.SpotifyPersonalData
 import com.example.playback.ui.personal.PersonalViewModel
@@ -41,15 +42,7 @@ class DBTestFragment : Fragment(), View.OnClickListener
         val root =
             inflater.inflate(R.layout.fragment_database, container, false)
 
-        val record_id: EditText = root.findViewById(R.id.recordID)
-        val user_id: EditText = root.findViewById(R.id.userID)
-        val artist_name: EditText = root.findViewById(R.id.artistName)
-        val popularity_score: EditText = root.findViewById(R.id.popularityScore)
-        val songName: EditText = root.findViewById(R.id.songName)
-        val albumName: EditText = root.findViewById(R.id.albumName)
-        val songGenre: EditText = root.findViewById(R.id.songGenre)
 
-        val db_text_test: TextView = root.findViewById(R.id.test_db)
 
         // create db
         try {
@@ -62,62 +55,56 @@ class DBTestFragment : Fragment(), View.OnClickListener
         }
 
 
-        val addButton = root.findViewById<Button>(R.id.add_data_button)
-        addButton.setOnClickListener {
+        val song = root.findViewById<Button>(R.id.pull_song)
+        song.setOnClickListener {
+            val arr = db.getSongs(HistoryRecord.TIME_DAILY)
+            val ll_parent: LinearLayout = root.findViewById(R.id.ll_parent)
 
-
-            var response: Boolean = false
-            try {
-                db.writableDatabase
-                response = db.addData(
-                    SpotifyPersonalData(
-                        Integer.parseInt(record_id.text.toString()),
-                        Integer.parseInt(user_id.text.toString()),
-                        artist_name.text.toString(),
-                        Integer.parseInt(popularity_score.text.toString()),
-                        songName.text.toString(),
-                        albumName.text.toString(),
-                        songGenre.text.toString(),
-                        0.0,
-                        0.0
-                    )
-                )
-
-                Log.w("asdf", "in add try block")
-            } catch(e: Exception) {
-                Log.w("asdf", "${e.printStackTrace()}")
-                Log.w("asdf", "add not successful")
-            }
-            if (response)
+            for (obj in arr)
             {
-                Log.w("asdf", "add was successful!!")
-            } else {
-                Log.w("asdf", "was not successful :(")
+                // code to create textview programmtically
+                val dynamic_view: TextView = TextView(this.context as Context)
+                dynamic_view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                dynamic_view.text = "Song: ${obj.songName}, Artist: ${obj.artist}, Listens: ${obj.listens}"
+                ll_parent.addView(dynamic_view)
             }
+
+
 
 
 
         }
 
 
-        val fetchButton = root.findViewById<Button>(R.id.find_data_button)
-        fetchButton.setOnClickListener{
-            record_id.visibility = View.GONE
-            user_id.visibility = View.GONE
-            popularity_score.visibility = View.GONE
-            artist_name.visibility = View.GONE
-            songName.visibility = View.GONE
-            albumName.visibility = View.GONE
-            songGenre.visibility = View.GONE
+        val artist = root.findViewById<Button>(R.id.pull_artist)
+        artist.setOnClickListener{
 
-            val arr = db.findData(0)
+
+            val arr = db.getArtists(HistoryRecord.TIME_DAILY)
             val ll_parent: LinearLayout = root.findViewById(R.id.ll_parent)
+
             for (obj in arr)
             {
                 // code to create textview programmtically
                 val dynamic_view: TextView = TextView(this.context as Context)
                 dynamic_view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                dynamic_view.text = "UserID: ${obj.userId}, RecordID: ${obj.recordId}, Artist Name: ${obj.artistName}, Pop Score: ${obj.popularityScore}, Song Name: ${obj.songName}, Album Name: ${obj.albumName}"
+                dynamic_view.text = "Artist: ${obj.artist}, Listens: ${obj.listens}"
+                ll_parent.addView(dynamic_view)
+            }
+        }
+
+        val album = root.findViewById<Button>(R.id.pull_album)
+        album.setOnClickListener{
+
+            val arr = db.getAlbums(HistoryRecord.TIME_DAILY)
+            val ll_parent: LinearLayout = root.findViewById(R.id.ll_parent)
+
+            for (obj in arr)
+            {
+                // code to create textview programmtically
+                val dynamic_view: TextView = TextView(this.context as Context)
+                dynamic_view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                dynamic_view.text = "Album: ${obj.album}, Artist: ${obj.songName}, Listens: ${obj.listens}"
                 ll_parent.addView(dynamic_view)
             }
         }

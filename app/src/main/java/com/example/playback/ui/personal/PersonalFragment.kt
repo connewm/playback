@@ -45,16 +45,14 @@ class PersonalFragment : Fragment(), View.OnClickListener
         mWeeklyButton.setOnClickListener(this)
         val mMonthlyButton: Button = root.findViewById(R.id.monthly_button)
         mMonthlyButton.setOnClickListener(this)
-        val mYearlyButton: Button = root.findViewById(R.id.yearly_button)
-        mYearlyButton.setOnClickListener(this)
+        val mAllTimeButton: Button = root.findViewById(R.id.all_time_button)
+        mAllTimeButton.setOnClickListener(this)
 
         // get other filter buttons
         val mSongButton: Button = root.findViewById(R.id.song_button)
         mSongButton.setOnClickListener(this)
         val mArtistButton: Button = root.findViewById(R.id.artist_button)
         mArtistButton.setOnClickListener(this)
-        val mGenreButton: Button = root.findViewById(R.id.genre_button)
-        mGenreButton.setOnClickListener(this)
         val mAlbumButton: Button = root.findViewById(R.id.album_button)
         mAlbumButton.setOnClickListener(this)
 
@@ -106,7 +104,7 @@ class PersonalFragment : Fragment(), View.OnClickListener
         var currentlySelected: String = ""
         personalViewModel = ViewModelProviders.of(this).get(PersonalViewModel::class.java)
         // first want to find out if its a time filter or a pref filter that has been selected
-        if (v.id == R.id.daily_button || v.id == R.id.weekly_button || v.id == R.id.monthly_button || v.id == R.id.yearly_button)
+        if (v.id == R.id.daily_button || v.id == R.id.weekly_button || v.id == R.id.monthly_button || v.id == R.id.all_time_button)
         {
             when(v.id)
             {
@@ -119,8 +117,8 @@ class PersonalFragment : Fragment(), View.OnClickListener
                 R.id.weekly_button -> {
                     personalViewModel.time_filter_text.value = "Weekly Selected"
                 }
-                R.id.yearly_button -> {
-                    personalViewModel.time_filter_text.value = "Yearly Selected"
+                R.id.all_time_button -> {
+                    personalViewModel.time_filter_text.value = "All Time Selected"
                 }
 
             }
@@ -133,9 +131,6 @@ class PersonalFragment : Fragment(), View.OnClickListener
                 }
                 R.id.artist_button -> {
                     personalViewModel.pref_filter_text.value = "Artist Selected"
-                }
-                R.id.genre_button -> {
-                    personalViewModel.pref_filter_text.value = "Genre Selected"
                 }
                 R.id.album_button -> {
                     personalViewModel.pref_filter_text.value = "Album Selected"

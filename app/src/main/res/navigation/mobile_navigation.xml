@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_maps" />
 
     <fragment
+        android:id="@+id/navigation_database"
+        android:name="com.example.playback.ui.database_test.DBTestFragment"
+        android:label="DatabaseTest"
+        tools:layout="@layout/activity_database"/>
+
+    <fragment
         android:id="@+id/navigation_personal"
         android:name="com.example.playback.ui.personal.PersonalFragment"
         android:label="@string/title_personal"

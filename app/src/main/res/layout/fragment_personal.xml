@@ -77,12 +77,12 @@
                     android:layout_marginLeft="5dp"/>
 
                 <Button
-                    android:id="@+id/yearly_button"
+                    android:id="@+id/all_time_button"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bgBar"
-                    android:text="@string/button_time_yearly"
+                    android:text="@string/button_time_all"
                     android:textColor="@color/colorPrimary"
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"/>
@@ -113,17 +113,6 @@
                     android:layout_height="wrap_content"
                     android:background="@color/bgBar"
                     android:text="@string/button_filter_artist"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"/>
-
-                <Button
-                    android:id="@+id/genre_button"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/bgBar"
-                    android:text="@string/button_filter_genre"
                     android:textColor="@color/colorPrimary"
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"/>
