@@ -32,7 +32,7 @@ class DBManager(context: Context) :
                 DBContract.DataEntry.COLUMN_USER_ID + " INTEGER,"
                 + DBContract.DataEntry.COLUMN_ARTIST_NAME + " TEXT," + DBContract.DataEntry.COLUMN_POPULARITY_SCORE + " INTEGER," +
                 DBContract.DataEntry.COLUMN_SONG_NAME + " TEXT," + DBContract.DataEntry.COLUMN_ALBUM_NAME + " TEXT," + DBContract.DataEntry.COLUMN_SONG_GENRE + " TEXT," +
-                DBContract.DataEntry.COLUMN_SONG_LATITUDE + " REAL," + DBContract.DataEntry.COLUMN_SONG_LONGITUDE + " REAL)")
+                DBContract.DataEntry.COLUMN_SONG_LATITUDE + " REAL," + DBContract.DataEntry.COLUMN_SONG_LONGITUDE + " REAL, " + DBContract.DataEntry.COLUMN_IMAGE_URI + " Text)")
 
         private val CREATE_SONG_ENTRIES = ("create table " + DBContract.DataEntry.TABLE_SONG_DATA + "(" +
                 DBContract.DataEntry.COLUMN_SONG_NAME + " text primary key, " + DBContract.DataEntry.COLUMN_ARTIST_NAME + " text, "+ DBContract.DataEntry.COLUMN_DAILY_LISTEN_START +
@@ -174,6 +174,7 @@ class DBManager(context: Context) :
             values.put(DBContract.DataEntry.COLUMN_SONG_GENRE, data.songGenre)
             values.put(DBContract.DataEntry.COLUMN_SONG_LATITUDE, data.listenLocationLatitude)
             values.put(DBContract.DataEntry.COLUMN_SONG_LONGITUDE, data.listenLocationLongitude)
+            //TODO: add image uri here
             Log.w("Adding new song to db", "Adding")
 
             try {
@@ -897,14 +898,15 @@ class DBManager(context: Context) :
         return record_id + 1
     }
 
-    // TODO: DEPRECATING!!!
+
     @Throws(SQLiteConstraintException::class)
-    fun showRecent():ArrayList<SpotifyPersonalData>{
+    fun showRecent(num_songs: Int):ArrayList<SpotifyPersonalData>{
         val data = ArrayList<SpotifyPersonalData>()
         val db = writableDatabase
         var cursor: Cursor? = null
         try {
-            cursor = db.rawQuery("select * from " + DBContract.DataEntry.TABLE_NAME + " ORDER BY " + DBContract.DataEntry.COLUMN_RECORD_ID + " DESC LIMIT " + 10,null)
+            // TODO: this is where you change number of songs returneed
+            cursor = db.rawQuery("select * from " + DBContract.DataEntry.TABLE_NAME + " ORDER BY " + DBContract.DataEntry.COLUMN_RECORD_ID + " DESC LIMIT " + num_songs,null)
             Log.w("asdf", "show recent successful")
         }catch (e: SQLiteException) {
             // if table not yet present, create it
