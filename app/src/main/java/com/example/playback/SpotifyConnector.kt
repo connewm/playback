@@ -20,6 +20,7 @@ class SpotifyConnector {
     //Spotify variables
     private val CLIENT_ID = "f4e7b6f3768a4e3ea9c44e4a5f1d8f9a"
     private val REDIRECT_URI = "com.example.playback://callback"
+    var TAG = "SPOTIFY CONNECTOR"
 
     companion object  {
         private  var mSpotifyAppRemote: SpotifyAppRemote? = null
@@ -58,14 +59,11 @@ class SpotifyConnector {
 
 
     fun disconnectToSpotify(){
+        Log.d(TAG, " DISCONNECTED!")
         SpotifyAppRemote.disconnect(mSpotifyAppRemote);
     }
 
 
-    fun notConnected(): Boolean {
-        if (mSpotifyAppRemote == null)  return true
-        return  false
-    }
 
     private fun continuoslyAddSongsToDataBase() {
 
@@ -87,6 +85,7 @@ class SpotifyConnector {
                     val lat: Double = 39.9805
                     val long: Double = -83.0038
 
+                    Log.w("asdf", "IMAGE URI IS " +track.imageUri.toString())
                     //TODO add data to the database
                     var newData = SpotifyPersonalData(id,userId, track.artist.name.toString(),
                         0,track.name.toString(), track.album.name.toString(),
@@ -138,16 +137,28 @@ class SpotifyConnector {
 
     fun getAlbumArt(uri: ImageUri): Bitmap? {
             var b: Bitmap? = null
+            Log.d(TAG, "TRYING TO GET ALBUM ART")
+            if (albumArt.containsKey(uri)){
+                b = albumArt!![uri]
+                Log.d(TAG, "GOT ALBUM ART FROM MAP")
+            }
+            else if ( isConnected()){
 
-            if (albumArt.containsKey(uri)){ b = albumArt!![uri]}
-            else if ( mSpotifyAppRemote != null){
                 //get album art
-                var b = mSpotifyAppRemote?.imagesApi?.getImage(uri)?.await()?.data
-
+                var u = ImageUri("ImageId{spotify:image:ab67616d0000b273c417aad130701f49d8e629b8'}")
+                var b = mSpotifyAppRemote?.imagesApi?.getImage(u)?.await()?.data
+                Log.d(TAG, "GOT ALBUM ART FROM SPOTIFY")
                 //save album art in a map for later use
                 albumArt[uri] = b!!
+                Log.d(TAG, "ADD BITMAP TO MAP")
+
             }
         
         return  b
+    }
+
+    fun isConnected(): Boolean {
+        if( mSpotifyAppRemote != null && mSpotifyAppRemote!!.isConnected)  return true
+        return false
     }
 }

@@ -44,26 +44,21 @@ class MainActivity : AppCompatActivity() {
     lateinit var db : DBManager
 
     //create an object taht will handle spotify operations
-    lateinit var sc : SpotifyConnector
+    var sc : SpotifyConnector = SpotifyConnector()
 
     //LIFE CYCLE METHODS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.v(TAG, "called onCreate")
+        Log.d(TAG, "called onCreate")
 
 
         //initialize the dataBase
         initializeDataBaseConnection()
 
         //Try to connect to Spotify which initializes mSpotifyAppRemote
-
-        sc = SpotifyConnector()
         sc.connectToSpotify(this.applicationContext)
 
-        while(sc.notConnected()) {
-            Thread.sleep(1_000)
-        }
 
         Log.d(TAG, "spotify connected")
 
@@ -89,12 +84,14 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.v(TAG, "called onStart")
+        if(!sc.isConnected()) sc.connectToSpotify(this.applicationContext)
 
     }
 
     override fun onResume() {
         super.onResume()
         Log.v(TAG, "called onResume")
+        if(!sc.isConnected()) sc.connectToSpotify(this.applicationContext)
     }
 
     override fun onPause() {

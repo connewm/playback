@@ -1,5 +1,6 @@
 package com.example.playback.ui.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.main_page_text_view.view.*
 class SongAdapter (private val myDataset: List<SpotifyPersonalData>) :
     RecyclerView.Adapter<SongAdapter.MyViewHolder>() {
 
+    val TAG = "SONG ADAPTER "
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder.
@@ -43,10 +45,18 @@ class SongAdapter (private val myDataset: List<SpotifyPersonalData>) :
 
         var song = myDataset[position]
         var sc = SpotifyConnector()
+
+        Log.d(TAG, "GET ALBUM ART FOR SONG" +song.songName)
         var b = sc.getAlbumArt(song.imageUri!!)
 
 
-        if (b != null){ holder.itemView.albumArt.setImageBitmap(b) }
+        if (b != null){
+            holder.itemView.albumArt.setImageBitmap(b)
+            Log.d(TAG, "GOT album art for song " + song.songName)
+        }else{
+            Log.d(TAG, "NO ALBUM ART FOR SONG " +song.songName)
+            Log.d(TAG, "NO ALBUM ART FOR SONG " +song.imageUri)
+        }
         holder.itemView.songNameTextView.text = song.songName + " By: " + song.artistName
 
     }
