@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_personal"
         android:title="@string/title_personal" />
 
+    <item
+        android:id="@+id/navigation_database"
+        android:icon="@drawable/ic_social"
+        android:title="Database"/>
+
 </menu>

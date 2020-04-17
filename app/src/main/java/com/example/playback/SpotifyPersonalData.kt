@@ -7,11 +7,11 @@ class SpotifyPersonalData{
 
     var recordId: Int = 0
     var userId: Int = 0
-    var artistName: String? = null
+    var artistName: String = ""
     var popularityScore: Int = 0
-    var songName: String? = null
-    var albumName: String? = null
-    var songGenre: String? = null
+    var songName: String = ""
+    var albumName: String = ""
+    var songGenre: String = ""
 
 
     var listenLocationLatitude = 0.00
@@ -30,7 +30,7 @@ class SpotifyPersonalData{
         this.albumName = albumName
         this.songGenre = songGenre
 
-        // these values are for pinpointing the location of a listened to song
+        // these values are for pinpointing the location of a listened to song (where it was listened to most recently)
         this.listenLocationLatitude = listenLocationLatitude
         this.listenLocationLongitude = listenLocationLongitude
 

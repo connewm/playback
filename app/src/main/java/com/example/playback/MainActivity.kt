@@ -34,6 +34,9 @@ import com.spotify.protocol.types.PlayerState
 import com.spotify.protocol.client.Subscription;
 import com.spotify.protocol.types.Track;
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.system.exitProcess
 
 
 
@@ -50,7 +53,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+<<<<<<< HEAD
         Log.d(TAG, "called onCreate")
+=======
+        Log.v(TAG, "called onCreate")
+
+
+        /**
+         * Before creating the view for the main activity we want to read from the provided JSON
+         * file and store that data in the database for the user.
+         * This process will mimic what our app will do every time the Main Activity is created
+         * Which is call the Spotify API for the users top songs/artists/etc. and either create
+         * a record for them, or update the current record so the user can view their personal
+         * Spotify data in the Personal page
+         *
+         * Unfortunately we don't have the Spotify API 100% working yet, but the JSONs returned by
+         * API calls will look exactly like the one stored in the res/raw directory now.
+         */
+>>>>>>> chartInPersonal
 
 
         //initialize the dataBase
@@ -88,6 +108,52 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+<<<<<<< HEAD
+=======
+
+    private fun connected() { // Play a playlist
+        //mSpotifyAppRemote.playerApi.play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL")
+        //mSpotifyAppRemote.playerApi.play("spotify:track:3xgkq8uCVU2VGOHhdWtkCI")
+        //mSpotifyAppRemote.playerApi.play("spotify:playlist:1FeniFvH4IcpLSPqTskJvF")
+        // Subscribe to PlayerState
+
+        mSpotifyAppRemote.playerApi
+            .subscribeToPlayerState()
+            .setEventCallback { playerState: PlayerState ->
+                val track = playerState.track
+                if (track != null) {
+                    Log.d(TAG, track.name + " by " + track.artist.name)
+
+                    //TODO get unique id
+                    val userId = 0
+
+                    val id = db.generate_record_id(0) // db.generate_record_id(userId)
+                    Log.w("asdf", "$id")
+
+                    val lat: Double = 39.9805
+                    val long: Double = -83.0038
+
+                    //TODO add data to the database
+                    var newData = SpotifyPersonalData(id,userId, track.artist.name.toString(),
+                        0,track.name.toString(), track.album.name.toString(),
+                        "IDK YET", lat,long)
+                    var response: Boolean = false
+
+                    response = db.addData(newData)
+
+
+
+                    if (response) {
+                        Log.w("asdf", "add operation worked")
+                    } else {
+                        Log.w("asdf", "addData returned false")
+                    }
+                }
+            }
+    }
+
+
+>>>>>>> chartInPersonal
     override fun onResume() {
         super.onResume()
         Log.v(TAG, "called onResume")
