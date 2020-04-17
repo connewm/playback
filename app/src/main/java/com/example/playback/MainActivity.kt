@@ -61,9 +61,7 @@ class MainActivity : AppCompatActivity() {
         sc = SpotifyConnector()
         sc.connectToSpotify(this.applicationContext)
 
-        while(sc.notConnected()) {
-            Thread.sleep(1_000)
-        }
+
 
         Log.d(TAG, "spotify connected")
 
