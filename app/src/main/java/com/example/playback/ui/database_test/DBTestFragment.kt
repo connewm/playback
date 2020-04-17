@@ -60,43 +60,13 @@ class DBTestFragment : Fragment(), View.OnClickListener
         }
 
 
-<<<<<<< HEAD
-        val addButton = root.findViewById<Button>(R.id.add_data_button)
-        addButton.setOnClickListener {
-
-
-            var response: Boolean = false
-            try {
-                db.writableDatabase
-                response = db.addData(
-                    SpotifyPersonalData(
-                        Integer.parseInt(record_id.text.toString()),
-                        Integer.parseInt(user_id.text.toString()),
-                        artist_name.text.toString(),
-                        Integer.parseInt(popularity_score.text.toString()),
-                        songName.text.toString(),
-                        albumName.text.toString(),
-                        songGenre.text.toString(),
-                        0.0,
-                        0.0,
-                        iUri
-                    )
-                )
-
-                Log.w("asdf", "in add try block")
-            } catch(e: Exception) {
-                Log.w("asdf", "${e.printStackTrace()}")
-                Log.w("asdf", "add not successful")
-            }
-            if (response)
-=======
         val song = root.findViewById<Button>(R.id.pull_song)
         song.setOnClickListener {
             val arr = db.getSongs(HistoryRecord.TIME_DAILY)
             val ll_parent: LinearLayout = root.findViewById(R.id.ll_parent)
 
             for (obj in arr)
->>>>>>> chartInPersonal
+
             {
                 // code to create textview programmtically
                 val dynamic_view: TextView = TextView(this.context as Context)
