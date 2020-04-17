@@ -43,8 +43,10 @@ class HomeFragment : Fragment() {
 
         viewManager = LinearLayoutManager(this.activity)
 
+
         var sc = SpotifyConnector()
         var recentlyPLayed = sc.getRecentlyPlayed()
+
         viewAdapter = SongAdapter(recentlyPLayed)
         //Log.v(TAG,"the data as an array: " + dataForRecylerView.toString().toList().toTypedArray())
         //Log.v(TAG,"the data as an array: " + dataSet)

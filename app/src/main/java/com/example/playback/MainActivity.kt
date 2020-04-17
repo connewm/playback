@@ -46,18 +46,28 @@ class MainActivity : AppCompatActivity() {
     //create an object taht will handle spotify operations
     lateinit var sc : SpotifyConnector
 
-    //Spotify variables
-    private val CLIENT_ID = "f4e7b6f3768a4e3ea9c44e4a5f1d8f9a"
-    private val REDIRECT_URI = "com.example.playback://callback"
-    private lateinit  var mSpotifyAppRemote: SpotifyAppRemote
-
-
-
     //LIFE CYCLE METHODS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.v(TAG, "called onCreate")
+
+
+        //initialize the dataBase
+        initializeDataBaseConnection()
+
+        //Try to connect to Spotify which initializes mSpotifyAppRemote
+
+        sc = SpotifyConnector()
+        sc.connectToSpotify(this.applicationContext)
+
+        while(sc.notConnected()) {
+            Thread.sleep(1_000)
+        }
+
+        Log.d(TAG, "spotify connected")
+
+        sc.connectDataBase(db)
 
         //Setting up activity UI
         setContentView(R.layout.activity_main)
@@ -72,16 +82,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        //initialize the dataBase
-        initializeDataBaseConnection()
-
-        //Try to connect to Spotify which initializes mSpotifyAppRemote
-        sc = SpotifyConnector()
-        sc.connectToSpotify(this.applicationContext)
-        sc.connectDataBase(db)
-
-
 
     }
 

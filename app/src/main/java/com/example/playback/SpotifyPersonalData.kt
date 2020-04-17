@@ -1,5 +1,8 @@
 package com.example.playback
 
+import android.graphics.Bitmap
+import com.spotify.protocol.types.ImageUri
+
 class SpotifyPersonalData{
 
     var recordId: Int = 0
@@ -14,7 +17,10 @@ class SpotifyPersonalData{
     var listenLocationLatitude = 0.00
     var listenLocationLongitude = 0.0
 
-    constructor(recordId: Int, userId: Int, artistName: String, popularityScore: Int, songName: String, albumName: String, songGenre: String, listenLocationLatitude: Double, listenLocationLongitude: Double){
+    var imageUri: ImageUri? =  null
+
+
+    constructor(recordId: Int, userId: Int, artistName: String, popularityScore: Int, songName: String, albumName: String, songGenre: String, listenLocationLatitude: Double, listenLocationLongitude: Double, imageUri: ImageUri){
 
         this.recordId = recordId
         this.userId = userId
@@ -27,6 +33,8 @@ class SpotifyPersonalData{
         // these values are for pinpointing the location of a listened to song
         this.listenLocationLatitude = listenLocationLatitude
         this.listenLocationLongitude = listenLocationLongitude
+
+        this.imageUri = imageUri
     }
 
 }

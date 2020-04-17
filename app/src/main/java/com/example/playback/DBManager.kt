@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteException
 import android.util.Log
 import com.example.playback.ui.database_test.DBContract
+import com.spotify.protocol.types.ImageUri
+
 val TAG = "DBMANAGER"
 class DBManager(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME,
@@ -89,6 +91,10 @@ class DBManager(context: Context) :
         var songGenre: String
         var songLatitude: Double
         var songLongitude: Double
+
+        //TODO CHANGE THIS
+        var iUri= ImageUri("")
+
         if (cursor!!.moveToFirst()) {
             while (cursor.isAfterLast == false) {
                 recordid = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_RECORD_ID)))
@@ -100,7 +106,7 @@ class DBManager(context: Context) :
                 songLatitude = cursor.getDouble(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_LATITUDE))
                 songLongitude = cursor.getDouble(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_LONGITUDE))
 
-                data.add(SpotifyPersonalData(recordid, userid, artistname, popularityscore, songName, albumName, songGenre, songLatitude, songLongitude))
+                data.add(SpotifyPersonalData(recordid, userid, artistname, popularityscore, songName, albumName, songGenre, songLatitude, songLongitude,iUri))
                 cursor.moveToNext()
             }
         }
@@ -131,8 +137,11 @@ class DBManager(context: Context) :
                     + "='" + record_id + "'", null)
         } catch(e: SQLiteException)
         {
+
+            //TODO CHANGE THIS
+            var iUri= ImageUri("")
             db.execSQL(SQL_CREATE_ENTRIES)
-            return SpotifyPersonalData(0, 0, "", 0, "", "", "", 0.0, 0.0)
+            return SpotifyPersonalData(0, 0, "", 0, "", "", "", 0.0, 0.0,iUri)
         }
         var user_id: Int = 0
         var artist: String = ""
@@ -142,6 +151,9 @@ class DBManager(context: Context) :
         var songGenre: String = ""
         var songLatitude = 0.0
         var songLongitude = 0.0
+
+        //TODO CHANGE THIS
+        var iUri= ImageUri("")
         if (cursor!!.moveToFirst())
         {
 
@@ -154,8 +166,10 @@ class DBManager(context: Context) :
             songLatitude = cursor.getDouble(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_LATITUDE))
             songLongitude = cursor.getDouble(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_LONGITUDE))
 
+
+
         }
-        return SpotifyPersonalData(record_id, user_id, artist, pop, songName, albumName, songGenre, songLatitude, songLongitude)
+        return SpotifyPersonalData(record_id, user_id, artist, pop, songName, albumName, songGenre, songLatitude, songLongitude, iUri)
     }
 
     // record contains the new record to update the old record with
@@ -227,6 +241,8 @@ class DBManager(context: Context) :
         var albumName: String
         var songGenre: String
 
+        //TODO CHANGE THIS
+        var iUri = ImageUri("")
 
         if (cursor!!.moveToLast()) {
             while (cursor.isBeforeFirst == false) {
@@ -237,7 +253,7 @@ class DBManager(context: Context) :
                 songName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_NAME))
                 albumName = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_ALBUM_NAME))
                 songGenre = cursor.getString(cursor.getColumnIndex(DBContract.DataEntry.COLUMN_SONG_GENRE))
-                    data.add(SpotifyPersonalData(recordid, userid,artistname, popularityscore, songName,albumName,songGenre, 0.0 , 0.0))
+                    data.add(SpotifyPersonalData(recordid, userid,artistname, popularityscore, songName,albumName,songGenre, 0.0 , 0.0,iUri))
 
                 cursor.moveToPrevious()
             }

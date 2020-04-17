@@ -21,10 +21,15 @@ import com.example.playback.DBManager
 import com.example.playback.R
 import com.example.playback.SpotifyPersonalData
 import com.example.playback.ui.personal.PersonalViewModel
+import com.spotify.protocol.types.ImageUri
 import kotlinx.android.synthetic.main.fragment_database.*
 import kotlinx.android.synthetic.main.fragment_personal.*
 import org.w3c.dom.Text
 import java.lang.Exception
+
+
+//TODO CHANGE THIS
+var iUri= ImageUri("")
 
 class DBTestFragment : Fragment(), View.OnClickListener
 {
@@ -79,7 +84,8 @@ class DBTestFragment : Fragment(), View.OnClickListener
                         albumName.text.toString(),
                         songGenre.text.toString(),
                         0.0,
-                        0.0
+                        0.0,
+                        iUri
                     )
                 )
 
@@ -166,7 +172,8 @@ class DBTestFragment : Fragment(), View.OnClickListener
                                 albumName,
                                 songGenre,
                                 songLatitude,
-                                songLongitude
+                                songLongitude,
+                                iUri
                             )
                         )
 

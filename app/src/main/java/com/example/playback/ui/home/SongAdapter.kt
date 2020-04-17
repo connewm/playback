@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playback.R
+import com.example.playback.SpotifyConnector
+import com.example.playback.SpotifyPersonalData
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.main_page_text_view.view.*
 
-class SongAdapter (private val myDataset: Array<Pair<String?,String?>>) :
+class SongAdapter (private val myDataset: List<SpotifyPersonalData>) :
     RecyclerView.Adapter<SongAdapter.MyViewHolder>() {
 
     // Provide a reference to the views for each data item
@@ -18,6 +20,7 @@ class SongAdapter (private val myDataset: Array<Pair<String?,String?>>) :
     // Each data item is just a string in this case that is shown in a TextView.
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val name = itemView.songNameTextView
+        val image = itemView.albumArt
         //val listens = itemView.amountListenTextView
     }
 
@@ -37,8 +40,15 @@ class SongAdapter (private val myDataset: Array<Pair<String?,String?>>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.itemView.songNameTextView.text = myDataset[position].first + " By: " + myDataset[position].second
-        //holder.itemView.amountListenTextView.text = myDataset[position].second
+
+        var song = myDataset[position]
+        var sc = SpotifyConnector()
+        var b = sc.getAlbumArt(song.imageUri!!)
+
+
+        if (b != null){ holder.itemView.albumArt.setImageBitmap(b) }
+        holder.itemView.songNameTextView.text = song.songName + " By: " + song.artistName
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
