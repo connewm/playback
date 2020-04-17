@@ -137,19 +137,20 @@ class SpotifyConnector {
 
     fun getAlbumArt(uri: ImageUri): Bitmap? {
             var b: Bitmap? = null
+            var u = ImageUri("ab67616d0000b273c417aad130701f49d8e629b8")
             Log.d(TAG, "TRYING TO GET ALBUM ART")
-            if (albumArt.containsKey(uri)){
-                b = albumArt!![uri]
+            if (albumArt.containsKey(u)){
+                b = albumArt!![u]
                 Log.d(TAG, "GOT ALBUM ART FROM MAP")
             }
             else if ( isConnected()){
 
                 //get album art
-                var u = ImageUri("ImageId{spotify:image:ab67616d0000b273c417aad130701f49d8e629b8'}")
+                var u = ImageUri("ab67616d0000b273c417aad130701f49d8e629b8")
                 var b = mSpotifyAppRemote?.imagesApi?.getImage(u)?.await()?.data
                 Log.d(TAG, "GOT ALBUM ART FROM SPOTIFY")
                 //save album art in a map for later use
-                albumArt[uri] = b!!
+                albumArt[u] = b!!
                 Log.d(TAG, "ADD BITMAP TO MAP")
 
             }
