@@ -1,153 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/personal_screen"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:layout_height="match_parent" android:layout_width="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/personal_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-    <TextView
-        android:id="@+id/time_text_personal"
-        android:layout_width="fill_parent"
-        android:layout_height="22dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
-    <TextView
-        android:id="@+id/pref_text_personal"
-        android:layout_width="fill_parent"
-        android:layout_height="22dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
-
-
-        <LinearLayout
-            android:id="@+id/selector_container"
+        <TextView
+            android:id="@+id/time_text_personal"
             android:layout_width="fill_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/pref_text_personal"
+            android:layout_width="fill_parent"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
 
             <LinearLayout
-                android:id="@+id/time_selector_container"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:gravity="center">
+                android:id="@+id/selector_container"
+                android:layout_width="fill_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/time_selector_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:gravity="center">
 
 
-                <Button
-                    android:id="@+id/daily_button"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/bgBar"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/button_time_daily"
-                    android:textColor="@color/colorPrimary"
-                    />
+                    <Button
+                        android:id="@+id/daily_button"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/bgBar"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/button_time_daily"
+                        android:textColor="@color/colorPrimary"
+                        />
 
-                <Button
-                    android:id="@+id/weekly_button"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/bgBar"
-                    android:text="@string/button_time_weekly"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"/>
+                    <Button
+                        android:id="@+id/weekly_button"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/bgBar"
+                        android:text="@string/button_time_weekly"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"/>
 
-                <Button
-                    android:id="@+id/monthly_button"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/bgBar"
-                    android:text="@string/button_time_monthly"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"/>
+                    <Button
+                        android:id="@+id/monthly_button"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/bgBar"
+                        android:text="@string/button_time_monthly"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"/>
 
-                <Button
-                    android:id="@+id/all_time_button"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/bgBar"
-                    android:text="@string/button_time_all"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"/>
+                    <Button
+                        android:id="@+id/all_time_button"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/bgBar"
+                        android:text="@string/button_time_all"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"/>
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/filter_selector_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/song_button"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/bgBar"
+                        android:text="@string/button_filter_song"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"/>
+
+                    <Button
+                        android:id="@+id/artist_button"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/bgBar"
+                        android:text="@string/button_filter_artist"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"/>
+
+                    <Button
+                        android:id="@+id/album_button"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/bgBar"
+                        android:text="@string/button_filter_album"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"/>
+
+                </LinearLayout>
             </LinearLayout>
-
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
             <LinearLayout
-                android:id="@+id/filter_selector_container"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/song_button"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+                <View
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight=".75"
+                    android:background="@drawable/rectangle"
+                    />
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/bgBar"
-                    android:text="@string/button_filter_song"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"/>
-
-                <Button
-                    android:id="@+id/artist_button"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
+                    android:layout_weight=".25"
+                    android:gravity="right"
+                    android:text="Testing"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+                <View
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight=".75"
+                    android:background="@drawable/rectangle"
+                    />
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/bgBar"
-                    android:text="@string/button_filter_artist"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"/>
-
-                <Button
-                    android:id="@+id/album_button"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
+                    android:layout_weight=".25"
+                    android:gravity="right"
+                    android:layout_marginRight="15dp"
+                    android:text="Testing"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight=".75"
+                    android:background="@drawable/rectangle"
+                    android:text="65%"
+                    android:textAlignment="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    >
+                </TextView>
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/bgBar"
-                    android:text="@string/button_filter_album"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"/>
-
+                    android:layout_weight=".25"
+                    android:gravity="right"
+                    android:layout_marginRight="15dp"
+                    android:text="Testing"/>
             </LinearLayout>
         </LinearLayout>
 
 
-        <com.anychart.AnyChartView
-            android:id="@+id/any_chart_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <!-- Use this list view to present the entered records from the database -->
-                <!-- A list view of list views should be needed because each record has a list of data associated with it -->
-            </ListView>
-        </ScrollView>
 
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

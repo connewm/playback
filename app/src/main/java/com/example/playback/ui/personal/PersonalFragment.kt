@@ -67,7 +67,7 @@ class PersonalFragment : Fragment(), View.OnClickListener
         personalViewModel.pref_filter_text.observe(this, Observer {
             pref_tv.text = it
         })
-
+/**
         try {
 
             var db = DBManager(this.context as Context)
@@ -85,13 +85,15 @@ class PersonalFragment : Fragment(), View.OnClickListener
 
             pie.data(data);
 
-            var anyChartView: AnyChartView = root.findViewById(R.id.any_chart_view);
+            pie.background().fill("#404040")
+            var anyChartView: AnyChartView = root.findViewById(R.id.any_chart_view)
             anyChartView.setChart(pie)
 
         } catch(e: Exception)
         {
             Log.w("asdf", "db creation failed")
         }
+        */
 
 
         return root

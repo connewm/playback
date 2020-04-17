@@ -52,19 +52,6 @@ class MainActivity : AppCompatActivity() {
         Log.v(TAG, "called onCreate")
 
 
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val currentDate = sdf.format(Date())
-        Log.w("date testing", "date is ${currentDate}")
-        val testInt = currentDate.substring(0, 2)
-        Log.w("get int testing", "${Integer.parseInt(testInt)}")
-
-        var cal = Calendar.getInstance()
-        val dateObj = sdf.parse(currentDate)
-        cal.time = dateObj
-
-        cal.add(Calendar.DATE, -1)
-        Log.w("date testing minus one day", "date mins one is ${sdf.format(cal.time)}")
-
         /**
          * Before creating the view for the main activity we want to read from the provided JSON
          * file and store that data in the database for the user.
