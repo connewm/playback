@@ -15,6 +15,7 @@ object DBContract{
             val COLUMN_SONG_GENRE = "song_genre"
             val COLUMN_SONG_LATITUDE = "song_latitude"
             val COLUMN_SONG_LONGITUDE = "song_longitude"
+            val COLUMN_IMAGE_URI = "image_uri"
 
             // additional table names
             val TABLE_SONG_DATA = "personalSongHistory"
