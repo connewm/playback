@@ -37,7 +37,8 @@
                 android:id="@+id/selector_container"
                 android:layout_width="fill_parent"
                 android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp">
 
                 <LinearLayout
                     android:id="@+id/time_selector_container"
@@ -134,79 +135,15 @@
 
                 </LinearLayout>
             </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+        <ScrollView
+            android:layout_height="match_parent" android:layout_width="match_parent">
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
-                <View
-                    android:layout_marginLeft="25dp"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_weight=".75"
-                    android:background="@drawable/rectangle"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".25"
-                    android:gravity="right"
-                    android:text="Testing"/>
+                android:orientation="vertical"
+                android:id="@+id/listening_wrapper">
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
-                <View
-                    android:layout_marginLeft="25dp"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_weight=".75"
-                    android:background="@drawable/rectangle"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".25"
-                    android:gravity="right"
-                    android:layout_marginRight="15dp"
-                    android:text="Testing"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
-                <TextView
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_weight=".75"
-                    android:background="@drawable/rectangle"
-                    android:text="65%"
-                    android:textAlignment="center"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    >
-                </TextView>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".25"
-                    android:gravity="right"
-                    android:layout_marginRight="15dp"
-                    android:text="Testing"/>
-            </LinearLayout>
-        </LinearLayout>
-
+        </ScrollView>
 
 
 

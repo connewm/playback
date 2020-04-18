@@ -47,7 +47,7 @@ class SongAdapter (private val myDataset: List<SpotifyPersonalData>) :
         var sc = SpotifyConnector()
 
         Log.d(TAG, "GET ALBUM ART FOR SONG" +song.songName)
-        var b = sc.getAlbumArt(song.imageUri!!)
+        var b = null //sc.getAlbumArt(song.imageUri!!)
 
 
         if (b != null){

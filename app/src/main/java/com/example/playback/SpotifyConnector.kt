@@ -125,7 +125,7 @@ class SpotifyConnector {
 
         //obtain data from the database
         try {
-            dataSet = db.showRecent()
+            dataSet = db.showRecent(50)
             Log.w("asdf", "shens code worked WOW!")
         }catch(e:Exception){
             Log.e("asdf", e.toString())

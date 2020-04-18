@@ -286,6 +286,7 @@ class DBManager(context: Context) :
         values.put(DBContract.DataEntry.COLUMNN_WEEKLY_LISTENS, prevWeeklyListens)
         values.put(DBContract.DataEntry.COLUMN_MONTHLY_LISTEN_START, newMontlyStart)
         values.put(DBContract.DataEntry.COLUMN_MONTHLY_LISTENS, prevMontlyListens)
+        values.put(DBContract.DataEntry.COLUMN_ALL_TIME_LISTENS, prevAllTimeListens)
 
         try {
             db.update(DBContract.DataEntry.TABLE_SONG_DATA, values,"${DBContract.DataEntry.COLUMN_SONG_NAME}=\"$songName\"", null)
@@ -389,6 +390,7 @@ class DBManager(context: Context) :
         values.put(DBContract.DataEntry.COLUMNN_WEEKLY_LISTENS, prevWeeklyListens)
         values.put(DBContract.DataEntry.COLUMN_MONTHLY_LISTEN_START, newMontlyStart)
         values.put(DBContract.DataEntry.COLUMN_MONTHLY_LISTENS, prevMontlyListens)
+        values.put(DBContract.DataEntry.COLUMN_ALL_TIME_LISTENS, prevAllTimeListens)
 
         try {
             db.update(DBContract.DataEntry.TABLE_ARTIST_DATA, values,"${DBContract.DataEntry.COLUMN_ARTIST_NAME}=\"$artist\"", null)
@@ -491,6 +493,7 @@ class DBManager(context: Context) :
         values.put(DBContract.DataEntry.COLUMNN_WEEKLY_LISTENS, prevWeeklyListens)
         values.put(DBContract.DataEntry.COLUMN_MONTHLY_LISTEN_START, newMontlyStart)
         values.put(DBContract.DataEntry.COLUMN_MONTHLY_LISTENS, prevMontlyListens)
+        values.put(DBContract.DataEntry.COLUMN_ALL_TIME_LISTENS, prevAllTimeListens)
 
         try {
             db.update(DBContract.DataEntry.TABLE_ALBUM_DATA, values,"${DBContract.DataEntry.COLUMN_ALBUM_NAME}=\"$albumName\"", null)
