@@ -47,13 +47,19 @@ class SongAdapter (private val myDataset: List<SpotifyPersonalData>) :
         var sc = SpotifyConnector()
 
         Log.d(TAG, "GET ALBUM ART FOR SONG" +song.songName)
-        var b = null //sc.getAlbumArt(song.imageUri!!)
+        var albumCovers = mapOf("Flower Boy" to R.drawable.hamptons, "InnerSpeaker" to R.drawable.bold_arrow,
+            "Currents" to R.drawable.currents, "Senior Skip Day" to  R.drawable.kids, "Swimming" to R.drawable.swimming,
+            "For Emma, Forever Ago" to R.drawable.tree, "D" to  R.drawable.default_album_cover)
 
 
-        if (b != null){
-            holder.itemView.albumArt.setImageBitmap(b)
+        if (albumCovers.containsKey((song.albumName))){
+
+            holder.itemView.albumArt.setImageResource(albumCovers[song.albumName]!!)
+            holder.itemView.albumArt.layoutParams.height = 200
+            holder.itemView.albumArt.layoutParams.width= 200
             Log.d(TAG, "GOT album art for song " + song.songName)
         }else{
+            holder.itemView.albumArt.setImageResource(albumCovers["D"]!!)
             Log.d(TAG, "NO ALBUM ART FOR SONG " +song.songName)
             Log.d(TAG, "NO ALBUM ART FOR SONG " +song.imageUri)
         }

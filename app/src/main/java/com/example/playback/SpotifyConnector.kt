@@ -85,7 +85,10 @@ class SpotifyConnector {
                     val lat: Double = 39.9805
                     val long: Double = -83.0038
 
+                    //get bitmap
                     Log.w("asdf", "IMAGE URI IS " +track.imageUri.toString())
+                    //mSpotifyAppRemote!!.imagesApi.getImage(track.imageUri).setResultCallback { b -> albumArt[track.imageUri]  = b }
+
                     //TODO add data to the database
                     var newData = SpotifyPersonalData(id,userId, track.artist.name.toString(),
                         0,track.name.toString(), track.album.name.toString(),
@@ -147,16 +150,15 @@ class SpotifyConnector {
 
                 //get album art
                 var u = ImageUri("ab67616d0000b273c417aad130701f49d8e629b8")
-                var b = mSpotifyAppRemote?.imagesApi?.getImage(u)?.await()?.data
+                mSpotifyAppRemote!!.imagesApi.getImage(uri).setResultCallback { bit ->
+                    albumArt[uri]  = bit
+                    b = bit
+                }
                 Log.d(TAG, "GOT ALBUM ART FROM SPOTIFY")
-                //save album art in a map for later use
-                albumArt[u] = b!!
-                Log.d(TAG, "ADD BITMAP TO MAP")
-
             }
-        
         return  b
     }
+
 
     fun isConnected(): Boolean {
         if( mSpotifyAppRemote != null && mSpotifyAppRemote!!.isConnected)  return true
