@@ -47,10 +47,11 @@ class SongAdapter (private val myDataset: List<SpotifyPersonalData>) :
         var sc = SpotifyConnector()
 
         Log.d(TAG, "GET ALBUM ART FOR SONG" +song.songName)
+
+
         var albumCovers = mapOf("Flower Boy" to R.drawable.hamptons, "InnerSpeaker" to R.drawable.bold_arrow,
             "Currents" to R.drawable.currents, "Senior Skip Day" to  R.drawable.kids, "Swimming" to R.drawable.swimming,
             "For Emma, Forever Ago" to R.drawable.tree, "D" to  R.drawable.default_album_cover)
-
 
         if (albumCovers.containsKey((song.albumName))){
 
